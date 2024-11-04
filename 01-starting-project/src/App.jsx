@@ -5,7 +5,7 @@ import TabButton from './components/TabButton/TabButton.jsx';
 import { CORE_CONCEPTS, EXAMPLES } from './data.js';
 
 function App() {
-    const [selectedTopic, setSelectedTopic] = useState('components');
+    const [selectedTopic, setSelectedTopic] = useState();
 
     function handleSelect(selectedBtn) {
         setSelectedTopic(selectedBtn);
@@ -29,10 +29,30 @@ function App() {
                 <section id="examples">
                     <h2>Examples</h2>
                     <menu>
-                        <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
-                        <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
-                        <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
-                        <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'components'}
+                            onSelect={() => handleSelect('components')}
+                        >
+                            Components
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'jsx'}
+                            onSelect={() => handleSelect('jsx')}
+                        >
+                            JSX
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'props'}
+                            onSelect={() => handleSelect('props')}
+                        >
+                            Props
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'state'}
+                            onSelect={() => handleSelect('state')}
+                        >
+                            State
+                        </TabButton>
                     </menu>
 
                     {!selectedTopic ? (
