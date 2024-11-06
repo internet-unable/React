@@ -26,7 +26,7 @@ function App() {
 
             const updatedTurns = [
                 {
-                    square: {row: rowIndex, col: colIndex},
+                    square: { row: rowIndex, col: colIndex },
                     player: currentPlayer
                 },
                 ...prevTurns
