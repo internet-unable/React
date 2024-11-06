@@ -13,7 +13,7 @@ export default function Player({ initName, symbol, isActive }) {
     }
 
     return(
-        <li className={isActive && 'active'}>
+        <li className={isActive ? 'active' : ''}>
             <div className="player">
                 {!isEditing && <span className="player-name">{playerName}</span>}
                 {isEditing && <input type="text" value={playerName} onChange={handlePlayerNameChange} />}
