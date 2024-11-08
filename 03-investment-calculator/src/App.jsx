@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Input from './components/Input/Input.jsx';
-import {calculateInvestmentResults, formatter} from './util/investment.js';
+import Results from './components/Results/Results.jsx';
+import {calculateInvestmentResults} from './util/investment.js';
 
 function App() {
     const [userInput, setUserInput] = useState({
@@ -9,7 +10,7 @@ function App() {
         expectedReturn: 5.5,
         duration: 12
     });
-    const list = calculateInvestmentResults(userInput);
+    const resultsList = calculateInvestmentResults(userInput);
 
     function handleUserInputChange(type) {
         setUserInput(prevState => {
@@ -49,31 +50,7 @@ function App() {
                     />
                 </div>
             </section>
-
-            <section id="result">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Investment value</th>
-                            <th>Interest (Year)</th>
-                            <th>Total interest</th>
-                            <th>Invested Capital</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {list.map(item => (
-                            <tr key={item.year}>
-                                <td>{item.year}</td>
-                                <td>{formatter.format(item.valueEndOfYear)}</td>
-                                <td>{formatter.format(item.interest)}</td>
-                                <td>$550</td>
-                                <td>$10,300</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
+            <Results list={resultsList} />
         </>
     )
 }
