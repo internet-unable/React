@@ -1,27 +1,17 @@
+import Input from './components/Input/Input.jsx';
+
 function App() {
     return (
         <>
             <section id="user-input">
                 <div className="input-group">
-                    <div>
-                        <label>Initial investment</label>
-                        <input type="number" />
-                    </div>
-                    <div>
-                        <label>Annual investment</label>
-                        <input type="number" />
-                    </div>
+                    <Input label="Initial investment" />
+                    <Input label="Annual investment" />
                 </div>
 
                 <div className="input-group">
-                    <div>
-                        <label>Expected return</label>
-                        <input type="number" />
-                    </div>
-                    <div>
-                        <label>Duration</label>
-                        <input type="number" />
-                    </div>
+                    <Input label="Expected return" />
+                    <Input label="Duration" />
                 </div>
             </section>
 
