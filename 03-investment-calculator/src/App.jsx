@@ -10,6 +10,7 @@ function App() {
         expectedReturn: 5.5,
         duration: 12
     });
+    const inputIsValid = userInput.duration > 0 ? true : false;
     const resultsList = calculateInvestmentResults(userInput);
 
     function handleUserInputChange(type) {
@@ -50,7 +51,8 @@ function App() {
                     />
                 </div>
             </section>
-            <Results list={resultsList} />
+            {inputIsValid && <Results list={resultsList} />}
+            {!inputIsValid && <p className='center'>Please enter a duration greater then 0</p>}
         </>
     )
 }
