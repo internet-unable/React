@@ -1,13 +1,13 @@
 export default function Input({ label, inputType = 'number', inputValue, onChange }) {
     return (
-        <div>
-            <label>{label}</label>
+        <p>
+            {label && <label>{label}</label>}
             <input
                 type={inputType}
                 value={inputValue}
                 onChange={onChange}
-                min="1"
+                min={inputType === 'number' && '1'}
             />
-        </div>
+        </p>
     );
 }
