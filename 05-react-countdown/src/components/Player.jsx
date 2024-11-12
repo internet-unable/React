@@ -1,23 +1,18 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Player() {
+    const playerName = useRef();
     const [enteredPlayerName, setEnteredPlayerName] = useState('');
-    const [isNameSet, setIsNameSet] = useState(false);
-
-    function handleInputChange(event) {
-        setIsNameSet(false);
-        setEnteredPlayerName(event.target.value);
-    }
 
     function handleBtnClick() {
-        setIsNameSet(true);
+        setEnteredPlayerName(playerName.current.value);
     }
 
     return (
         <section id="player">
-            <h2>Welcome {isNameSet ? enteredPlayerName : 'unknown entity'}</h2>
+            <h2>Welcome {enteredPlayerName || 'unknown entity'}</h2>
             <p>
-                <input type="text" onChange={handleInputChange} value={enteredPlayerName} />
+                <input type="text" ref={playerName} />
                 <button type="button" onClick={handleBtnClick}>Set Name</button>
             </p>
         </section>
