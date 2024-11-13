@@ -1,5 +1,5 @@
-export default function Button() {
+export default function Button({type = 'button', children}) {
     return(
-        <p>This is component for button</p>
+        <button type={type}>{children}</button>
     );
 }
