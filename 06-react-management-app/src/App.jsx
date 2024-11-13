@@ -5,15 +5,15 @@ import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/N
 import CreateProjectPanel from "./components/Panels/CreateProjectPanel/CreateProjectPanel.jsx";
 import ProjectDetailsPanel from "./components/Panels/ProjectDetailsPanel/ProjectDetailsPanel.jsx";
 
-const DEFAULT = 'default';
-const CREATING_PROJECT = 'creating-project';
-const PROJECT_DETAILS = 'project-details';
+const DEFAULT_PANEL = 'default';
+const CREATING_PROJECT_PANEL = 'creating-project';
+const PROJECT_DETAILS_PANEL = 'project-details';
 
 function App() {
-    const [activePanel, setActivePanel] = useState(DEFAULT);
+    const [activePanel, setActivePanel] = useState(DEFAULT_PANEL);
 
     function handleAddProjectClick() {
-        setActivePanel(CREATING_PROJECT);
+        setActivePanel(CREATING_PROJECT_PANEL);
     }
 
     // function handleProjectSelect() {
@@ -24,9 +24,9 @@ function App() {
         <>
             <SideMenu addProjectHandler={handleAddProjectClick} />
 
-            {activePanel === DEFAULT && <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />}
-            {activePanel === CREATING_PROJECT && <CreateProjectPanel />}
-            {activePanel === PROJECT_DETAILS && <ProjectDetailsPanel />}
+            {activePanel === DEFAULT_PANEL && <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />}
+            {activePanel === CREATING_PROJECT_PANEL && <CreateProjectPanel />}
+            {activePanel === PROJECT_DETAILS_PANEL && <ProjectDetailsPanel />}
         </>
     );
 }

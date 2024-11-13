@@ -4,7 +4,7 @@ import TextArea from "../../Elements/TextArea/TextArea.jsx";
 
 export default function CreateProjectPanel() {
     return(
-        <section id="create-project-panel">
+        <section className="h-screen">
             <ul>
                 <li>
                     <Button>Cancel</Button>

@@ -3,7 +3,7 @@ import Input from "../../Elements/Input/Input.jsx";
 
 export default function ProjectDetailsPanel({title, dueDate, desc}) {
     return (
-        <section id="project-panel">
+        <section className="h-screen">
             <ul>
                 <li>
                     <h1>{title}</h1>
@@ -18,7 +18,7 @@ export default function ProjectDetailsPanel({title, dueDate, desc}) {
 
             <hr />
 
-            <section id="project-panel">
+            <section>
                 <h2>Tasks</h2>
                 <div>
                     <div>

@@ -2,7 +2,7 @@ import Button from '../Elements/Button/Button.jsx';
 
 export default function SideMenu({addProjectHandler}) {
     return(
-        <aside>
+        <aside className="h-screen">
             <h2>Your projects</h2>
             <Button onClick={addProjectHandler}>+ Add project</Button>
             <ul>
