@@ -1,15 +1,9 @@
+import SideMenu from "./components/SideMenu/SideMenu.jsx";
+
 function App() {
     return (
         <>
-            <aside>
-                <h2>Your projects</h2>
-                <button type="button">+ Add project</button>
-                <ul>
-                    <li>Project 1</li>
-                    <li>Project 2</li>
-                    <li>Project 3</li>
-                </ul>
-            </aside>
+            <SideMenu />
 
             <section id="no-project-selected-panel">
                 <img src="" alt="" />
