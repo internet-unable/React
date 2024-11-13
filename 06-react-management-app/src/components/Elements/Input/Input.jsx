@@ -1,5 +1,8 @@
-export default function Input() {
+export default function Input({label, type = 'text'}) {
     return(
-        <p>This is component for input</p>
+        <>
+            {label && <label>{label}</label>}
+            <input type={type} />
+        </>
     );
 }

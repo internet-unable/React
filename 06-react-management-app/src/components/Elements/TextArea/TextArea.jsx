@@ -1,5 +1,8 @@
-export default function TextArea() {
+export default function TextArea({label}) {
     return(
-        <p>This is component for textarea</p>
+        <>
+            {label && <label>{label}</label>}
+            <textarea></textarea>
+        </>
     );
 }
