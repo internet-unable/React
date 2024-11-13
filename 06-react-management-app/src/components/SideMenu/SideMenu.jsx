@@ -1,10 +1,10 @@
 import Button from '../Elements/Button/Button.jsx';
 
-export default function SideMenu() {
+export default function SideMenu({addProjectHandler}) {
     return(
         <aside>
             <h2>Your projects</h2>
-            <Button>+ Add project</Button>
+            <Button onClick={addProjectHandler}>+ Add project</Button>
             <ul>
                 <li>Project 1</li>
                 <li>Project 2</li>
