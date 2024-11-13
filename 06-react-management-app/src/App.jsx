@@ -1,16 +1,11 @@
 import SideMenu from "./components/SideMenu/SideMenu.jsx";
+import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/NoProjectSelectedPanel.jsx";
 
 function App() {
     return (
         <>
             <SideMenu />
-
-            <section id="no-project-selected-panel">
-                <img src="" alt="" />
-                <h3>No Project Selected</h3>
-                <p>Select a project or get started with a new one</p>
-                <button type="button">Create new project</button>
-            </section>
+            <NoProjectSelectedPanel />
 
             <section id="create-project-panel">
                 <ul>
