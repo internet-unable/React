@@ -3,7 +3,7 @@ import { useState } from "react";
 import SideMenu from "./components/SideMenu/SideMenu.jsx";
 import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/NoProjectSelectedPanel.jsx";
 import CreateProjectPanel from "./components/Panels/CreateProjectPanel/CreateProjectPanel.jsx";
-import ProjectPanel from "./components/Panels/ProjectPanel/ProjectPanel.jsx";
+import ProjectDetailsPanel from "./components/Panels/ProjectDetailsPanel/ProjectDetailsPanel.jsx";
 
 const DEFAULT = 'default';
 const CREATING_PROJECT = 'creating-project';
@@ -26,7 +26,7 @@ function App() {
 
             {activePanel === DEFAULT && <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />}
             {activePanel === CREATING_PROJECT && <CreateProjectPanel />}
-            {activePanel === PROJECT_DETAILS && <ProjectPanel />}
+            {activePanel === PROJECT_DETAILS && <ProjectDetailsPanel />}
         </>
     );
 }

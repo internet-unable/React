@@ -1,7 +1,7 @@
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
-export default function ProjectPanel({title, dueDate, desc}) {
+export default function ProjectDetailsPanel({title, dueDate, desc}) {
     return (
         <section id="project-panel">
             <ul>
