@@ -1,38 +1,13 @@
 import SideMenu from "./components/SideMenu/SideMenu.jsx";
 import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/NoProjectSelectedPanel.jsx";
+import CreateProjectPanel from "./components/Panels/CreateProjectPanel/CreateProjectPanel.jsx";
 
 function App() {
     return (
         <>
             <SideMenu />
             <NoProjectSelectedPanel />
-
-            <section id="create-project-panel">
-                <ul>
-                    <li>
-                        <button type="button">Cancel</button>
-                    </li>
-                    <li>
-                        <button type="button">Save</button>
-                    </li>
-                </ul>
-                <form>
-                    <div>
-                        <label>Title</label>
-                        <input type="text" />
-                    </div>
-
-                    <div>
-                        <label>Description</label>
-                        <textarea></textarea>
-                    </div>
-
-                    <div>
-                        <label>Due date</label>
-                        <input type="date" />
-                    </div>
-                </form>
-            </section>
+            <CreateProjectPanel />
 
             <section id="project-panel">
                 <ul>
