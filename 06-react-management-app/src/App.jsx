@@ -18,8 +18,14 @@ function App() {
         setActivePanel(CREATING_PROJECT_PANEL);
     }
 
-    function handleCancelProjectCreation() {
+    function handleCancelProjectCreationClick() {
         setActivePanel(DEFAULT_PANEL);
+    }
+
+    function handleSaveProjectClick() {
+        setProjectsList(prevList => {
+            // 
+        });
     }
 
     // function handleProjectSelect() {
@@ -34,7 +40,13 @@ function App() {
             />
 
             {activePanel === DEFAULT_PANEL && <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />}
-            {activePanel === CREATING_PROJECT_PANEL && <CreateProjectPanel cancelProjectCreationHandler={handleCancelProjectCreation} />}
+            {
+                activePanel === CREATING_PROJECT_PANEL &&
+                (<CreateProjectPanel
+                    cancelProjectCreationHandler={handleCancelProjectCreationClick}
+                    saveProjectHandler={handleSaveProjectClick}
+                />)
+            }
             {activePanel === PROJECT_DETAILS_PANEL && <ProjectDetailsPanel />}
         </>
     );
