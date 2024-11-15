@@ -1,12 +1,17 @@
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
-export default function CreateProjectPanel() {
+export default function CreateProjectPanel({cancelProjectCreationHandler}) {
     return(
         <section className="h-screen flex flex-col items-center grow pt-24 pl-10 pr-40">
             <ul className="w-full flex justify-end items-center mb-6">
                 <li>
-                    <Button btnTypeText={true}>Cancel</Button>
+                    <Button
+                        btnTypeText={true}
+                        onClick={cancelProjectCreationHandler}
+                    >
+                        Cancel
+                    </Button>
                 </li>
                 <li>
                     <Button>Save</Button>

@@ -18,6 +18,10 @@ function App() {
         setActivePanel(CREATING_PROJECT_PANEL);
     }
 
+    function handleCancelProjectCreation() {
+        setActivePanel(DEFAULT_PANEL);
+    }
+
     // function handleProjectSelect() {
     //     setActivePanel(PROJECT);
     // }
@@ -30,7 +34,7 @@ function App() {
             />
 
             {activePanel === DEFAULT_PANEL && <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />}
-            {activePanel === CREATING_PROJECT_PANEL && <CreateProjectPanel />}
+            {activePanel === CREATING_PROJECT_PANEL && <CreateProjectPanel cancelProjectCreationHandler={handleCancelProjectCreation} />}
             {activePanel === PROJECT_DETAILS_PANEL && <ProjectDetailsPanel />}
         </>
     );
