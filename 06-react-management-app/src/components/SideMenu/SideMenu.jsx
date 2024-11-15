@@ -17,7 +17,7 @@ export default function SideMenu({addProjectHandler, projectsList}) {
                 {projectsList.map(item => (
                     <li
                         key={item.id}
-                        className="text-neutral-400 px-2 py-1 mb-1 cursor-pointer hover:text-neutral-300 hover:bg-stone-600"
+                        className="text-neutral-400 px-2 py-1 mb-1 cursor-pointer hover:text-neutral-300 hover:bg-stone-700"
                     >
                         {item.name}
                     </li>
