@@ -13,7 +13,7 @@ const PROJECT_DETAILS_PANEL = 'project-details';
 function App() {
     const [activePanel, setActivePanel] = useState(DEFAULT_PANEL);
     const [projectsList, setProjectsList] = useState(PROJETS_LIST_BLUEPRINT);
-    const [selectedProject, setSelectedProject] = useState({});
+    const [selectedProjectId, setSelectedProjectId] = useState();
 
     function handleAddProjectClick() {
         setActivePanel(CREATING_PROJECT_PANEL);
@@ -35,10 +35,27 @@ function App() {
     }
 
     function handleProjectSelect(projectId) {
-        setSelectedProject(() => {
-            return projectsList.find(item => item.projectId === projectId);
-        });
+        setSelectedProjectId(projectId);
         setActivePanel(PROJECT_DETAILS_PANEL);
+    }
+
+    function handleAddTaskToProject(projectId, projectTask) {
+        setProjectsList(prevList => {
+            const deepClone = structuredClone(prevList);
+            const currentProject = deepClone.find(item => item.projectId === projectId);
+
+            if (currentProject.projectTasks) {
+                currentProject.projectTasks.push(projectTask)
+            } else {
+                currentProject.projectTasks = [projectTask];
+            }
+
+            return deepClone;
+        });
+    }
+
+    function handleDeleteTaskFromProject() {
+        // 
     }
 
     return (
@@ -65,7 +82,11 @@ function App() {
 
             {
                 activePanel === PROJECT_DETAILS_PANEL && (
-                    <ProjectDetailsPanel {...selectedProject} />
+                    <ProjectDetailsPanel
+                        selectedProject={projectsList.find(item => item.projectId === selectedProjectId)}
+                        addTaskToProject={handleAddTaskToProject}
+                        deleteTaskFromProject={handleDeleteTaskFromProject}
+                    />
                 )
             }
         </>
