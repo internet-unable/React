@@ -13,14 +13,16 @@ export default function SideMenu({addProjectHandler, projectsList, projectSelect
                     + Add project
                 </Button>
             </div>
-            <ul className="overflow-auto">
+            <ul className="overflow-auto space-y-2">
                 {projectsList.map(item => (
-                    <li
-                        key={item.projectId}
-                        className="text-neutral-400 px-2 py-1 mb-1 cursor-pointer hover:text-neutral-300 hover:bg-stone-700"
-                        onClick={() => projectSelectHandler(item.projectId)}
-                    >
-                        {item.projectTitle}
+                    <li key={item.projectId}>
+                        <button
+                            type="button"
+                            className="w-full text-left text-neutral-400 px-2 py-1 hover:text-neutral-300 hover:bg-stone-700 focus:text-neutral-300 focus:bg-stone-700 focus:outline-none"
+                            onClick={() => projectSelectHandler(item.projectId)}
+                        >
+                            {item.projectTitle}
+                        </button>
                     </li>
                 ))}
             </ul>
