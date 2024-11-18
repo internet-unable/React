@@ -1,6 +1,6 @@
 import Button from '../Elements/Button/Button.jsx';
 
-export default function SideMenu({addProjectHandler, projectsList}) {
+export default function SideMenu({addProjectHandler, projectsList, projectSelectHandler}) {
     return(
         <aside className="flex flex-col h-screen w-80 bg-black rounded-tr-2xl px-10 py-20">
             <div>
@@ -18,6 +18,7 @@ export default function SideMenu({addProjectHandler, projectsList}) {
                     <li
                         key={item.projectId}
                         className="text-neutral-400 px-2 py-1 mb-1 cursor-pointer hover:text-neutral-300 hover:bg-stone-700"
+                        onClick={() => projectSelectHandler(item.projectId)}
                     >
                         {item.projectTitle}
                     </li>

@@ -1,20 +1,20 @@
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
-export default function ProjectDetailsPanel({title, dueDate, desc}) {
+export default function ProjectDetailsPanel({projectTitle}) {
     return (
-        <section className="h-screen">
+        <section className="h-screen flex flex-col items-center grow pt-24 pl-10 pr-40">
             <ul>
                 <li>
-                    <h1>{title}</h1>
+                    <h1>{projectTitle}</h1>
                 </li>
                 <li>
                     <Button>Delete</Button>
                 </li>
             </ul>
 
-            <p>{dueDate}</p>
-            <p>{desc}</p>
+            {/* <p>{dueDate}</p> */}
+            {/* <p>{desc}</p> */}
 
             <hr />
 
