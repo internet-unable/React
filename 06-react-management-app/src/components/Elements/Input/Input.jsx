@@ -7,7 +7,7 @@ const Input = forwardRef(({containerClasses, label, id, type = 'text', stylesTyp
     const labelStyles = 'text-neutral-500 font-semibold uppercase mb-1';
     const defaultInputStyles = 'w-full bg-stone-300 px-2 py-2 rounded';
     const typeBottomOutlineInputStyles = 'border-b-2';
-    const typeRoundOutlineInputStyles = 'focus:outline focus:outline-2 focus:outline-blue-600';
+    const typeRoundOutlineInputStyles = 'outline outline-2';
     let finalInputStyles = '';
 
     if (stylesType === BOTTOM_OUTLINE) {
@@ -16,12 +16,18 @@ const Input = forwardRef(({containerClasses, label, id, type = 'text', stylesTyp
         if (isInputValid) {
             finalInputStyles += ' border-stone-400 focus:border-black';
         } else {
-            finalInputStyles += ' border-red-500';
+            finalInputStyles += ' border-red-500 focus:border-black';
         }
     }
 
     if (stylesType === ROUND_OUTLINE) {
         finalInputStyles = `${defaultInputStyles} ${typeRoundOutlineInputStyles}`
+
+        if (isInputValid) {
+            finalInputStyles += ' outline-slate-50 focus:outline-blue-500';
+        } else {
+            finalInputStyles += ' outline-red-500 focus:outline-blue-500';
+        }
     }
 
     return(
