@@ -18,13 +18,18 @@ function App() {
         setActivePanel(CREATING_PROJECT_PANEL);
     }
 
-    function handleCancelProjectCreationClick() {
+    function handleReturnToDefaultPanel() {
         setActivePanel(DEFAULT_PANEL);
     }
 
-    function handleSaveProjectClick() {
+    function handleSaveProjectClick(newProject) {
         setProjectsList(prevList => {
-            // 
+            handleReturnToDefaultPanel();
+
+            return [
+                ...prevList,
+                newProject
+            ];
         });
     }
 
@@ -43,7 +48,7 @@ function App() {
             {
                 activePanel === CREATING_PROJECT_PANEL &&
                 (<CreateProjectPanel
-                    cancelProjectCreationHandler={handleCancelProjectCreationClick}
+                    cancelProjectCreationHandler={handleReturnToDefaultPanel}
                     saveProjectHandler={handleSaveProjectClick}
                 />)
             }

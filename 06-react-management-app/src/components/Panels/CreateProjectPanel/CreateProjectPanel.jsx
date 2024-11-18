@@ -5,7 +5,7 @@ import Input from "../../Elements/Input/Input.jsx";
 
 export default function CreateProjectPanel({cancelProjectCreationHandler, saveProjectHandler}) {
     const projectTitleElem = useRef();
-    const projectDecsElem = useRef();
+    const projectDescElem = useRef();
     const projectDateElem = useRef();
     const [isProjectTitleValid, setIsProjectTitleValid] = useState(true);
 
@@ -13,7 +13,13 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
         if (!projectTitleElem.current.value.trim()) {
             setIsProjectTitleValid(false);
         } else {
-            // saveProjectHandler()
+            setIsProjectTitleValid(true);
+            saveProjectHandler({
+                projectId: Math.random(),
+                projectTitle: projectTitleElem.current.value.trim(),
+                projectDesc: projectDescElem.current.value.trim(),
+                projectDate: projectDateElem.current.value.trim()
+            });
         }
     }
 
@@ -39,19 +45,20 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
                     label="Title"
                     ref={projectTitleElem}
                     stylesType='bottom-outline'
-                    validateStyles
-                    isInputValidStyles={isProjectTitleValid}
+                    isInputValid={isProjectTitleValid}
                 />
                 <Input
                     id="desc"
                     label="Description"
                     type="textarea"
+                    ref={projectDescElem}
                     stylesType='bottom-outline'
                 />
                 <Input
                     id="date"
                     label="Due date"
                     type="date"
+                    ref={projectDateElem}
                     stylesType='bottom-outline'
                 />
             </form>
