@@ -24,12 +24,12 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
     }
 
     return(
-        <section className="h-full flex flex-col items-center grow py-24 pl-10 pr-40 overflow-auto">
-            <form className="w-full max-w-screen-md">
-                <ul className="flex justify-end items-center mb-6 space-x-4">
+        <section className="h-full flex flex-col items-center grow py-16 pr-40 overflow-auto">
+            <div className="w-full max-w-screen-md">
+                <menu className="flex justify-end items-center mb-6 gap-4">
                     <li>
                         <Button
-                            btnTypeText={true}
+                            isTypeText
                             onClick={cancelProjectCreationHandler}
                         >
                             Cancel
@@ -38,7 +38,7 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
                     <li>
                         <Button onClick={handleValidation}>Save</Button>
                     </li>
-                </ul>
+                </menu>
 
                 <div className="space-y-4">
                     <Input
@@ -66,7 +66,7 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
                         ref={projectDateElem}
                     />
                 </div>
-            </form>
+            </div>
         </section>
     );
 }

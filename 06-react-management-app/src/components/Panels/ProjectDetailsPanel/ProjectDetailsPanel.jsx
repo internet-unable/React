@@ -29,7 +29,7 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
     }
 
     return (
-        <section className="h-full flex flex-col items-center grow py-16 pl-10 pr-40 overflow-auto">
+        <section className="h-full flex flex-col items-center grow py-16 pr-40 overflow-auto">
             <div className="w-full max-w-screen-md">
                 <div className="mb-4">
                     <ul className="flex flex-row justify-between items-center w-full">
@@ -37,7 +37,7 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
                             {selectedProject.projectTitle && <h1 className="text-2xl font-semibold mb-2">{selectedProject.projectTitle}</h1>}
                         </li>
                         <li>
-                            <Button btnTypeText onClick={handleDeleteProject}>Delete</Button>
+                            <Button isTypeText onClick={handleDeleteProject}>Delete</Button>
                         </li>
                     </ul>
 
@@ -57,7 +57,7 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
                                 isInputValid={isTaskValid}
                                 ref={taskTitle}
                             />
-                            <Button btnTypeText onClick={handleAddTask}>Add task</Button>
+                            <Button isTypeText onClick={handleAddTask}>Add task</Button>
                         </div>
 
                         <ul className="bg-stone-200 space-y-4 px-4 rounded">
@@ -65,7 +65,7 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
                                 return (
                                     <li key={task.taskId} className="flex justify-between items-center first:pt-8 last:pb-8">
                                         <div>{task.taskTitle}</div>
-                                        <Button btnTypeText onClick={() => handleDeleteTask(task.taskId)}>Clear</Button>
+                                        <Button isTypeText onClick={() => handleDeleteTask(task.taskId)}>Clear</Button>
                                     </li>
                                 )
                             })}

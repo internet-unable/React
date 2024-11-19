@@ -10,8 +10,8 @@ export default function SideMenu({addProjectHandler, projectsList, projectSelect
             <div className="mb-10">
                 <h2 className="text-xl font-bold uppercase mb-8">Your projects</h2>
                 <Button
+                    isOnDarkBg
                     onClick={addProjectHandler}
-                    btnTypeOnDarkBg={true}
                 >
                     + Add project
                 </Button>
