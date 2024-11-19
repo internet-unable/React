@@ -13,7 +13,7 @@ const PROJECT_DETAILS_PANEL = 'project-details';
 function App() {
     const [activePanel, setActivePanel] = useState(DEFAULT_PANEL);
     const [projectsList, setProjectsList] = useState(PROJETS_LIST_BLUEPRINT);
-    const [selectedProjectId, setSelectedProjectId] = useState();
+    const [selectedProjectId, setSelectedProjectId] = useState(null);
 
     function handleAddProject() {
         setActivePanel(CREATING_PROJECT_PANEL);
@@ -49,6 +49,7 @@ function App() {
 
             return deepClone;
         });
+        setSelectedProjectId(null);
         setActivePanel(DEFAULT_PANEL);
     }
 
@@ -86,6 +87,7 @@ function App() {
                 addProjectHandler={handleAddProject}
                 projectsList={projectsList}
                 projectSelectHandler={handleProjectSelect}
+                selectedProject={selectedProjectId}
             />
 
             {
