@@ -54,8 +54,17 @@ function App() {
         });
     }
 
-    function handleDeleteTaskFromProject() {
-        // 
+    function handleDeleteTaskFromProject(projectId, taskId) {
+        setProjectsList(prevList => {
+            const deepClone = structuredClone(prevList);
+            const currentProject = deepClone.find(item => item.projectId === projectId);
+            const currentTask = currentProject.projectTasks.find(item => item.taskId === taskId);
+            const indexOfCurrentTask = currentProject.projectTasks.indexOf(currentTask);
+
+            currentProject.projectTasks.splice(indexOfCurrentTask, 1);
+
+            return deepClone;
+        });
     }
 
     return (
