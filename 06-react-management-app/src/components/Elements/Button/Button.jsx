@@ -1,9 +1,9 @@
 export default function Button({btnTypeText, btnTypeOnDarkBg, children, onClick, ...props}) {
     const defaultStyles = 'px-5 py-2.5 rounded-md';
-    const typeTextStyles = 'text-black hover:text-red-500 focus:text-red-500 focus:outline-none focus:underline';
+    const typeTextStyles = 'text-black outline-none hover:text-red-500 focus-visible:text-red-500 focus-visible:underline';
 
-    const onDarkBg = 'text-neutral-400 bg-stone-800 hover:bg-stone-700 focus:bg-stone-700';
-    const onLightBg = 'text-stone-50 bg-stone-900 hover:bg-stone-700 focus:bg-stone-700';
+    const onDarkBg = 'text-neutral-400 bg-stone-800 hover:bg-stone-700 outline-2 outline-offset-2 outline-neutral-400 focus-visible:bg-stone-700 focus-visible:outline';
+    const onLightBg = 'text-stone-50 bg-stone-900 hover:bg-stone-700 outline-2 outline-offset-2 outline-stone-900 focus-visible:bg-stone-700 focus-visible:outline';
 
     let finalStyles = `${defaultStyles} ${onLightBg}`;
 
