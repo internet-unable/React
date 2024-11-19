@@ -15,15 +15,17 @@ export default function ProjectDetailsPanel({ selectedProject, addTaskToProject,
                 taskId: `${selectedProject.projectId}-t${Math.random()}`,
                 taskTitle: taskTitle.current.value.trim()
             });
+            setIsTaskValid(true);
+            taskTitle.current.value = '';
         }
     }
 
     function handleClearClick(taskId) {
-        // deleteTaskFromProject()
+        deleteTaskFromProject(selectedProject.projectId, taskId);
     }
 
     return (
-        <section className="h-screen flex flex-col items-center grow pt-16 pl-10 pr-40">
+        <section className="h-full flex flex-col items-center grow py-16 pl-10 pr-40 overflow-auto">
             <div className="w-full max-w-screen-md">
                 <div className="mb-4">
                     <ul className="flex flex-row justify-between items-center w-full">
