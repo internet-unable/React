@@ -4,8 +4,8 @@ const BOTTOM_OUTLINE = 'bottom-outline';
 const ROUND_OUTLINE = 'rounded-outline';
 
 const Input = forwardRef(({containerClasses, label, id, type = 'text', stylesType, isInputValid = true}, ref) => {
-    const labelStyles = 'text-neutral-500 font-semibold uppercase mb-1';
-    const defaultInputStyles = 'w-full bg-stone-300 px-2 py-2 rounded';
+    const labelStyles = 'text-sm font-bold uppercase text-stone-500 mb-1';
+    const defaultInputStyles = 'w-full p-1 rounded-sm text-stone-600 bg-stone-200 outline-none';
     const typeBottomOutlineInputStyles = 'border-b-2';
     const typeRoundOutlineInputStyles = 'outline outline-2';
     let finalInputStyles = '';
@@ -14,9 +14,9 @@ const Input = forwardRef(({containerClasses, label, id, type = 'text', stylesTyp
         finalInputStyles = `${defaultInputStyles} ${typeBottomOutlineInputStyles}`;
 
         if (isInputValid) {
-            finalInputStyles += ' border-stone-400 focus:border-black';
+            finalInputStyles += ' border-stone-300 focus:border-stone-900';
         } else {
-            finalInputStyles += ' border-red-500 focus:border-black';
+            finalInputStyles += ' border-red-500 focus:border-stone-900';
         }
     }
 
@@ -33,11 +33,12 @@ const Input = forwardRef(({containerClasses, label, id, type = 'text', stylesTyp
     return(
         <>
             <div className={containerClasses}>
-                {label && <label className={labelStyles} htmlFor={id}>{label}</label>}
+                {label && <label htmlFor={id} className={labelStyles}>{label}</label>}
+
                 {type === 'textarea' ? (
-                    <textarea ref={ref} className={finalInputStyles} id={id}></textarea>
+                    <textarea id={id} className={finalInputStyles} ref={ref}></textarea>
                 ) : (
-                    <input ref={ref} className={finalInputStyles} type={type} id={id} />
+                    <input type={type} id={id} className={finalInputStyles} ref={ref} />
                 )}
             </div>
         </>
