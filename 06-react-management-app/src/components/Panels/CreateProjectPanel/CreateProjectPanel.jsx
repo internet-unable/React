@@ -24,7 +24,7 @@ export default function CreateProjectPanel({cancelProjectCreationHandler, savePr
     }
 
     return(
-        <section className="h-screen flex flex-col items-center grow pt-24 pl-10 pr-40">
+        <section className="h-full flex flex-col items-center grow py-24 pl-10 pr-40 overflow-auto">
             <form className="w-full max-w-screen-md">
                 <ul className="flex justify-end items-center mb-6 space-x-4">
                     <li>

@@ -2,7 +2,7 @@ import Button from '../Elements/Button/Button.jsx';
 
 export default function SideMenu({addProjectHandler, projectsList, projectSelectHandler}) {
     return(
-        <aside className="flex flex-col h-screen w-80 bg-black rounded-tr-2xl px-10 py-20">
+        <aside className="h-full flex flex-col w-80 bg-black rounded-tr-2xl px-10 py-20">
             <div>
                 <h2 className="text-2xl font-semibold text-white uppercase mb-10">Your projects</h2>
                 <Button
