@@ -15,15 +15,15 @@ function App() {
     const [projectsList, setProjectsList] = useState(PROJETS_LIST_BLUEPRINT);
     const [selectedProjectId, setSelectedProjectId] = useState();
 
-    function handleAddProjectClick() {
+    function handleAddProject() {
         setActivePanel(CREATING_PROJECT_PANEL);
     }
 
-    function handleCancelProjectCreationClick() {
+    function handleCancelProjectCreation() {
         setActivePanel(DEFAULT_PANEL);
     }
 
-    function handleSaveProjectClick(newProject) {
+    function handleSaveProject(newProject) {
         setProjectsList(prevList => {
             setActivePanel(DEFAULT_PANEL);
 
@@ -37,6 +37,19 @@ function App() {
     function handleProjectSelect(projectId) {
         setSelectedProjectId(projectId);
         setActivePanel(PROJECT_DETAILS_PANEL);
+    }
+
+    function handleDeleteProjectClick(projectId) {
+        setProjectsList(prevList => {
+            const deepClone = structuredClone(prevList);
+            const currentProject = deepClone.find(item => item.projectId === projectId);
+            const indexOfCurrentProject = deepClone.indexOf(currentProject);
+
+            deepClone.splice(indexOfCurrentProject, 1);
+
+            return deepClone;
+        });
+        setActivePanel(DEFAULT_PANEL);
     }
 
     function handleAddTaskToProject(projectId, projectTask) {
@@ -70,22 +83,22 @@ function App() {
     return (
         <>
             <SideMenu
-                addProjectHandler={handleAddProjectClick}
+                addProjectHandler={handleAddProject}
                 projectsList={projectsList}
                 projectSelectHandler={handleProjectSelect}
             />
 
             {
                 activePanel === DEFAULT_PANEL && (
-                    <NoProjectSelectedPanel addProjectHandler={handleAddProjectClick} />
+                    <NoProjectSelectedPanel addProjectHandler={handleAddProject} />
                 )
             }
 
             {
                 activePanel === CREATING_PROJECT_PANEL &&
                 (<CreateProjectPanel
-                    cancelProjectCreationHandler={handleCancelProjectCreationClick}
-                    saveProjectHandler={handleSaveProjectClick}
+                    cancelProjectCreationHandler={handleCancelProjectCreation}
+                    saveProjectHandler={handleSaveProject}
                 />)
             }
 
@@ -93,6 +106,7 @@ function App() {
                 activePanel === PROJECT_DETAILS_PANEL && (
                     <ProjectDetailsPanel
                         selectedProject={projectsList.find(item => item.projectId === selectedProjectId)}
+                        deleteProject={handleDeleteProjectClick}
                         addTaskToProject={handleAddTaskToProject}
                         deleteTaskFromProject={handleDeleteTaskFromProject}
                     />

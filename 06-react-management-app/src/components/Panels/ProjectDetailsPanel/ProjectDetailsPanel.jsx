@@ -3,11 +3,15 @@ import { useRef, useState } from 'react';
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
-export default function ProjectDetailsPanel({ selectedProject, addTaskToProject, deleteTaskFromProject }) {
+export default function ProjectDetailsPanel({ selectedProject, deleteProject, addTaskToProject, deleteTaskFromProject }) {
     const taskTitle = useRef();
     const [isTaskValid, setIsTaskValid] = useState(true);
 
-    function handleAddTaskClick() {
+    function handleDeleteProject() {
+        deleteProject(selectedProject.projectId);
+    }
+
+    function handleAddTask() {
         if (!taskTitle.current.value.trim()) {
             setIsTaskValid(false);
         } else {
@@ -20,7 +24,7 @@ export default function ProjectDetailsPanel({ selectedProject, addTaskToProject,
         }
     }
 
-    function handleClearClick(taskId) {
+    function handleDeleteTask(taskId) {
         deleteTaskFromProject(selectedProject.projectId, taskId);
     }
 
@@ -33,7 +37,7 @@ export default function ProjectDetailsPanel({ selectedProject, addTaskToProject,
                             {selectedProject.projectTitle && <h1 className="text-2xl font-semibold mb-2">{selectedProject.projectTitle}</h1>}
                         </li>
                         <li>
-                            <Button btnTypeText>Delete</Button>
+                            <Button btnTypeText onClick={handleDeleteProject}>Delete</Button>
                         </li>
                     </ul>
 
@@ -53,7 +57,7 @@ export default function ProjectDetailsPanel({ selectedProject, addTaskToProject,
                                 isInputValid={isTaskValid}
                                 ref={taskTitle}
                             />
-                            <Button btnTypeText onClick={handleAddTaskClick}>Add task</Button>
+                            <Button btnTypeText onClick={handleAddTask}>Add task</Button>
                         </div>
 
                         <ul className="bg-stone-200 space-y-4 px-4 rounded">
@@ -61,7 +65,7 @@ export default function ProjectDetailsPanel({ selectedProject, addTaskToProject,
                                 return (
                                     <li key={task.taskId} className="flex justify-between items-center first:pt-8 last:pb-8">
                                         <div>{task.taskTitle}</div>
-                                        <Button btnTypeText onClick={() => handleClearClick(task.taskId)}>Clear</Button>
+                                        <Button btnTypeText onClick={() => handleDeleteTask(task.taskId)}>Clear</Button>
                                     </li>
                                 )
                             })}
