@@ -1,4 +1,4 @@
-export const PROJETS_LIST_BLUEPRINT = [
+export const PROJETCS_LIST_BLUEPRINT = [
     {
         projectId: "p1",
         projectTitle: "Dummy Project Title 1",
