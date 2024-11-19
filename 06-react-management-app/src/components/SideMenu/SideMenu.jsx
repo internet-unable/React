@@ -6,11 +6,10 @@ export default function SideMenu({addProjectHandler, projectsList, projectSelect
     const activeProjectListItemStyles = 'text-neutral-300 bg-stone-700';
 
     return(
-        <aside className="h-full flex flex-col w-80 bg-black rounded-tr-2xl px-10 py-20">
-            <div>
-                <h2 className="text-2xl font-semibold text-white uppercase mb-10">Your projects</h2>
+        <aside className="h-full w-80 flex flex-col px-8 py-16 bg-stone-900 text-stone-50 rounded-tr-2xl">
+            <div className="mb-10">
+                <h2 className="text-xl font-bold uppercase mb-8">Your projects</h2>
                 <Button
-                    className="mb-10"
                     onClick={addProjectHandler}
                     btnTypeOnDarkBg={true}
                 >
