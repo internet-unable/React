@@ -1,103 +1,115 @@
 import { useState } from "react";
 
-import {PROJETS_LIST_BLUEPRINT} from './data.js'
+import {PROJETCS_LIST_BLUEPRINT} from './data.js'
 import SideMenu from "./components/SideMenu/SideMenu.jsx";
 import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/NoProjectSelectedPanel.jsx";
 import CreateProjectPanel from "./components/Panels/CreateProjectPanel/CreateProjectPanel.jsx";
 import ProjectDetailsPanel from "./components/Panels/ProjectDetailsPanel/ProjectDetailsPanel.jsx";
 
-const DEFAULT_PANEL = 'default';
-const CREATING_PROJECT_PANEL = 'creating-project';
-const PROJECT_DETAILS_PANEL = 'project-details';
-
 function App() {
-    const [activePanel, setActivePanel] = useState(DEFAULT_PANEL);
-    const [projectsList, setProjectsList] = useState(PROJETS_LIST_BLUEPRINT);
-    const [selectedProjectId, setSelectedProjectId] = useState(null);
+    const [appState, setAppState] = useState({
+        selectedProject: undefined,
+        // undefined - NoProjectSelectedPanel
+        // null - CreateProjectPanel
+        // projectId - ProjectDetailsPanel
+        projectsList: [...PROJETCS_LIST_BLUEPRINT]
+    });
 
     function handleAddProject() {
-        setActivePanel(CREATING_PROJECT_PANEL);
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                selectedProject: null,
+            }
+        });
     }
 
     function handleCancelProjectCreation() {
-        setActivePanel(DEFAULT_PANEL);
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                selectedProject: undefined,
+            }
+        });
     }
 
     function handleSaveProject(newProject) {
-        setProjectsList(prevList => {
-            setActivePanel(DEFAULT_PANEL);
-
-            return [
-                ...prevList,
-                newProject
-            ];
-        });
+        // setAppState(prevState => {
+        //     return [
+        //         ...prevState,
+        //         newProject
+        //     ];
+        // });
     }
 
     function handleProjectSelect(projectId) {
-        setSelectedProjectId(projectId);
-        setActivePanel(PROJECT_DETAILS_PANEL);
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                selectedProject: projectId
+            };
+        });
     }
 
     function handleDeleteProjectClick(projectId) {
-        setProjectsList(prevList => {
-            const deepClone = structuredClone(prevList);
-            const currentProject = deepClone.find(item => item.projectId === projectId);
-            const indexOfCurrentProject = deepClone.indexOf(currentProject);
+        // setProjectsList(prevList => {
+        //     const deepClone = structuredClone(prevList);
+        //     const currentProject = deepClone.find(item => item.projectId === projectId);
+        //     const indexOfCurrentProject = deepClone.indexOf(currentProject);
 
-            deepClone.splice(indexOfCurrentProject, 1);
+        //     deepClone.splice(indexOfCurrentProject, 1);
 
-            return deepClone;
-        });
-        setSelectedProjectId(null);
-        setActivePanel(DEFAULT_PANEL);
+        //     return deepClone;
+        // });
+        // setSelectedProjectId(null);
+        setAppState(undefined);
     }
 
     function handleAddTaskToProject(projectId, projectTask) {
-        setProjectsList(prevList => {
-            const deepClone = structuredClone(prevList);
-            const currentProject = deepClone.find(item => item.projectId === projectId);
+        // setProjectsList(prevList => {
+        //     const deepClone = structuredClone(prevList);
+        //     const currentProject = deepClone.find(item => item.projectId === projectId);
 
-            if (currentProject.projectTasks) {
-                currentProject.projectTasks.push(projectTask)
-            } else {
-                currentProject.projectTasks = [projectTask];
-            }
+        //     if (currentProject.projectTasks) {
+        //         currentProject.projectTasks.push(projectTask)
+        //     } else {
+        //         currentProject.projectTasks = [projectTask];
+        //     }
 
-            return deepClone;
-        });
+        //     return deepClone;
+        // });
     }
 
     function handleDeleteTaskFromProject(projectId, taskId) {
-        setProjectsList(prevList => {
-            const deepClone = structuredClone(prevList);
-            const currentProject = deepClone.find(item => item.projectId === projectId);
-            const currentTask = currentProject.projectTasks.find(item => item.taskId === taskId);
-            const indexOfCurrentTask = currentProject.projectTasks.indexOf(currentTask);
+        // setProjectsList(prevList => {
+        //     const deepClone = structuredClone(prevList);
+        //     const currentProject = deepClone.find(item => item.projectId === projectId);
+        //     const currentTask = currentProject.projectTasks.find(item => item.taskId === taskId);
+        //     const indexOfCurrentTask = currentProject.projectTasks.indexOf(currentTask);
 
-            currentProject.projectTasks.splice(indexOfCurrentTask, 1);
+        //     currentProject.projectTasks.splice(indexOfCurrentTask, 1);
 
-            return deepClone;
-        });
+        //     return deepClone;
+        // });
     }
 
     return (
         <>
             <SideMenu
                 addProjectHandler={handleAddProject}
-                projectsList={projectsList}
+                projectsList={appState.projectsList}
                 projectSelectHandler={handleProjectSelect}
-                selectedProject={selectedProjectId}
+                // selectedProject={appState.selectedProject}
             />
 
             {
-                activePanel === DEFAULT_PANEL && (
+                appState.selectedProject === undefined && (
                     <NoProjectSelectedPanel addProjectHandler={handleAddProject} />
                 )
             }
 
             {
-                activePanel === CREATING_PROJECT_PANEL &&
+                appState.selectedProject === null &&
                 (<CreateProjectPanel
                     cancelProjectCreationHandler={handleCancelProjectCreation}
                     saveProjectHandler={handleSaveProject}
@@ -105,9 +117,9 @@ function App() {
             }
 
             {
-                activePanel === PROJECT_DETAILS_PANEL && (
+                appState.selectedProject && (
                     <ProjectDetailsPanel
-                        selectedProject={projectsList.find(item => item.projectId === selectedProjectId)}
+                        // selectedProject={appState.projectsList.find(item => item.projectId === selectedProjectId)}
                         deleteProject={handleDeleteProjectClick}
                         addTaskToProject={handleAddTaskToProject}
                         deleteTaskFromProject={handleDeleteTaskFromProject}
