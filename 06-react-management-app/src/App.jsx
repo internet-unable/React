@@ -106,7 +106,7 @@ function App() {
                 addProjectHandler={handleAddProject}
                 projectsList={appState.projectsList}
                 projectSelectHandler={handleProjectSelect}
-                // selectedProject={appState.selectedProject}
+                selectedProject={appState.selectedProject}
             />
 
             {
@@ -126,7 +126,7 @@ function App() {
             {
                 appState.selectedProject && (
                     <ProjectDetailsPanel
-                        // selectedProject={appState.projectsList.find(item => item.projectId === selectedProjectId)}
+                        selectedProject={appState.projectsList.find(item => item.projectId === appState.selectedProject)}
                         deleteProject={handleDeleteProject}
                         addTaskToProject={handleAddTaskToProject}
                         deleteTaskFromProject={handleDeleteTaskFromProject}

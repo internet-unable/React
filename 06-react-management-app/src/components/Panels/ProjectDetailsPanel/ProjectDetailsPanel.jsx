@@ -34,15 +34,15 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
                 <div className="mb-4">
                     <ul className="flex flex-row justify-between items-center w-full">
                         <li>
-                            {/* {selectedProject.projectTitle && <h1 className="text-2xl font-semibold mb-2">{selectedProject.projectTitle}</h1>} */}
+                            {selectedProject.projectTitle && <h1 className="text-2xl font-semibold mb-2">{selectedProject.projectTitle}</h1>}
                         </li>
                         <li>
                             <Button isTypeText onClick={handleDeleteProject}>Delete</Button>
                         </li>
                     </ul>
 
-                    {/* {selectedProject.projectDate && <p className="text-stone-500 mb-4">{new Date(selectedProject.projectDate).toDateString()}</p>} */}
-                    {/* {selectedProject.projectDesc && <p>{selectedProject.projectDesc}</p>} */}
+                    {selectedProject.projectDate && <p className="text-stone-500 mb-4">{new Date(selectedProject.projectDate).toDateString()}</p>}
+                    {selectedProject.projectDesc && <p>{selectedProject.projectDesc}</p>}
                 </div>
 
                 <hr className="mb-4" />
