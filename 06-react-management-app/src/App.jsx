@@ -19,7 +19,7 @@ function App() {
         setAppState(prevState => {
             return {
                 ...prevState,
-                selectedProject: null,
+                selectedProject: null
             }
         });
     }
@@ -34,12 +34,17 @@ function App() {
     }
 
     function handleSaveProject(newProject) {
-        // setAppState(prevState => {
-        //     return [
-        //         ...prevState,
-        //         newProject
-        //     ];
-        // });
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                selectedProject: undefined,
+                projectsList: [
+                    ...prevState.projectsList,
+                    newProject
+                ]
+            };
+        });
+        
     }
 
     function handleProjectSelect(projectId) {
@@ -51,18 +56,20 @@ function App() {
         });
     }
 
-    function handleDeleteProjectClick(projectId) {
-        // setProjectsList(prevList => {
-        //     const deepClone = structuredClone(prevList);
-        //     const currentProject = deepClone.find(item => item.projectId === projectId);
-        //     const indexOfCurrentProject = deepClone.indexOf(currentProject);
+    function handleDeleteProject(projectId) {
+        setAppState(prevState => {
+            const deepClone = structuredClone(prevList);
+            const indexOfCurrentProject = deepClone.indexOf(deepClone.find(item => item.projectId === projectId));
+            deepClone.splice(indexOfCurrentProject, 1);
 
-        //     deepClone.splice(indexOfCurrentProject, 1);
-
-        //     return deepClone;
-        // });
-        // setSelectedProjectId(null);
-        setAppState(undefined);
+            return {
+                ...prevState,
+                selectedProject: undefined,
+                projectsList: [
+                    ...deepClone
+                ]
+            }
+        });
     }
 
     function handleAddTaskToProject(projectId, projectTask) {
@@ -111,8 +118,8 @@ function App() {
             {
                 appState.selectedProject === null &&
                 (<CreateProjectPanel
-                    cancelProjectCreationHandler={handleCancelProjectCreation}
                     saveProjectHandler={handleSaveProject}
+                    cancelProjectCreationHandler={handleCancelProjectCreation}
                 />)
             }
 
@@ -120,7 +127,7 @@ function App() {
                 appState.selectedProject && (
                     <ProjectDetailsPanel
                         // selectedProject={appState.projectsList.find(item => item.projectId === selectedProjectId)}
-                        deleteProject={handleDeleteProjectClick}
+                        deleteProject={handleDeleteProject}
                         addTaskToProject={handleAddTaskToProject}
                         deleteTaskFromProject={handleDeleteTaskFromProject}
                     />
