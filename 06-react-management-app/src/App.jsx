@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import {PROJETCS_LIST_BLUEPRINT} from './data.js'
+import {TASKS_LIST_BLUEPRINT} from './data.js'
+
 import SideMenu from "./components/SideMenu/SideMenu.jsx";
 import NoProjectSelectedPanel from "./components/Panels/NoProjectSelectedPanel/NoProjectSelectedPanel.jsx";
 import CreateProjectPanel from "./components/Panels/CreateProjectPanel/CreateProjectPanel.jsx";
@@ -12,7 +14,8 @@ function App() {
         // undefined - NoProjectSelectedPanel
         // null - CreateProjectPanel
         // projectId - ProjectDetailsPanel
-        projectsList: [...PROJETCS_LIST_BLUEPRINT]
+        projectsList: [...PROJETCS_LIST_BLUEPRINT],
+        taskList: [...TASKS_LIST_BLUEPRINT]
     });
 
     function handleAddProject() {
@@ -61,37 +64,27 @@ function App() {
             return {
                 ...prevState,
                 selectedProjectId: undefined,
-                projectsList: prevState.projectsList.filter(item => item.projectId !== prevState.selectedProjectId)
+                projectsList: prevState.projectsList.filter(project => project.projectId !== prevState.selectedProjectId)
             }
         });
     }
 
-    function handleAddTaskToProject(projectId, projectTask) {
-        // setProjectsList(prevList => {
-        //     const deepClone = structuredClone(prevList);
-        //     const currentProject = deepClone.find(item => item.projectId === projectId);
-
-        //     if (currentProject.projectTasks) {
-        //         currentProject.projectTasks.push(projectTask)
-        //     } else {
-        //         currentProject.projectTasks = [projectTask];
-        //     }
-
-        //     return deepClone;
-        // });
+    function handleAddTaskToProject(newTask) {
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                taskList: [...prevState.taskList, newTask]
+            }
+        });
     }
 
-    function handleDeleteTaskFromProject(projectId, taskId) {
-        // setProjectsList(prevList => {
-        //     const deepClone = structuredClone(prevList);
-        //     const currentProject = deepClone.find(item => item.projectId === projectId);
-        //     const currentTask = currentProject.projectTasks.find(item => item.taskId === taskId);
-        //     const indexOfCurrentTask = currentProject.projectTasks.indexOf(currentTask);
-
-        //     currentProject.projectTasks.splice(indexOfCurrentTask, 1);
-
-        //     return deepClone;
-        // });
+    function handleDeleteTaskFromProject(taskId) {
+        setAppState(prevState => {
+            return {
+                ...prevState,
+                taskList: prevState.taskList.filter(task => task.taskId !== taskId)
+            }
+        });
     }
 
     return (
@@ -120,7 +113,8 @@ function App() {
             {
                 appState.selectedProjectId && (
                     <ProjectDetailsPanel
-                        selectedProject={appState.projectsList.find(item => item.projectId === appState.selectedProjectId)}
+                        selectedProject={appState.projectsList.find(project => project.projectId === appState.selectedProjectId)}
+                        selectedProjectTasks={appState.taskList.filter(task => task.projectId === appState.selectedProjectId)}
                         deleteProjectHandler={handleDeleteProject}
                         addTaskToProjectHandler={handleAddTaskToProject}
                         deleteTaskFromProjectHandler={handleDeleteTaskFromProject}
