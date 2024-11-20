@@ -1,88 +1,93 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
+import Modal from '../../Modal/Modal.jsx';
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
 export default function ProjectDetailsPanel({
     selectedProject,
+    selectedProjectTasks,
     deleteProjectHandler,
     addTaskToProjectHandler,
     deleteTaskFromProjectHandler
 }) {
+    const modal = useRef();
     const taskTitle = useRef();
-    const [isTaskValid, setIsTaskValid] = useState(true);
     const formattedDate = new Date(selectedProject.projectDate).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
     });
 
-    function handleDeleteProject() {
-        deleteProjectHandler(selectedProject.projectId);
-    }
-
     function handleAddTask() {
         if (!taskTitle.current.value.trim()) {
-            setIsTaskValid(false);
+            modal.current.open();
         } else {
-            addTaskToProjectHandler(selectedProject.projectId, {
+            addTaskToProjectHandler({
+                projectId: selectedProject.projectId,
                 taskId: `${selectedProject.projectId}-t${Math.random()}`,
                 taskTitle: taskTitle.current.value.trim()
             });
-            setIsTaskValid(true);
             taskTitle.current.value = '';
         }
     }
 
-    function handleDeleteTask(taskId) {
-        deleteTaskFromProjectHandler(selectedProject.projectId, taskId);
-    }
-
     return (
-        <section className="h-full flex flex-col items-center grow py-16 pr-40 overflow-auto">
-            <div className="w-full max-w-screen-md">
-                <div className="mb-4">
-                    <ul className="w-full flex flex-row justify-between items-center">
-                        <li>
-                            <h1 className="text-3xl font-bold text-stone-600 mb-2">{selectedProject.projectTitle}</h1>
-                        </li>
-                        <li>
-                            <Button isTypeText onClick={handleDeleteProject}>Delete</Button>
-                        </li>
-                    </ul>
+        <>
+            <Modal ref={modal}>
+                <h2 className="text-xl text-stone-700 font-bold mb-4">Invalid taks name</h2>
+                <p className="text-syone-600 mb-8">Please make sure that you provide a valid value for task input field.</p>
+            </Modal>
 
-                    <p className="text-stone-400 mb-4">{formattedDate}</p>
-                    <p className="text-stone-600 whitespace-pre-wrap">{selectedProject.projectDesc}</p>
-                </div>
+            <section className="h-full flex flex-col items-center grow py-16 pr-40 overflow-auto">
+                <div className="w-full max-w-screen-md">
+                    <div className="mb-4">
+                        <ul className="w-full flex flex-row justify-between items-center">
+                            <li>
+                                <h1 className="text-3xl font-bold text-stone-600 mb-2">{selectedProject.projectTitle}</h1>
+                            </li>
+                            <li>
+                                <Button isTypeText onClick={() => deleteProjectHandler(selectedProject.projectId)}>Delete</Button>
+                            </li>
+                        </ul>
 
-                <hr className="mb-4" />
+                        <p className="text-stone-400 mb-4">{formattedDate}</p>
+                        <p className="text-stone-600 whitespace-pre-wrap">{selectedProject.projectDesc}</p>
+                    </div>
 
-                <section>
-                    <h2 className="text-xl font-semibold mb-4">Tasks</h2>
-                    <div>
-                        <div className="flex items-center mb-6 space-x-4">
+                    <hr className="mb-4" />
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
+
+                        <div className="flex items-center mb-6 gap-4">
                             <Input
                                 containerClasses="w-6/12"
                                 stylesType="rounded-outline"
-                                isInputValid={isTaskValid}
                                 ref={taskTitle}
                             />
-                            <Button isTypeText onClick={handleAddTask}>Add task</Button>
+                            <Button onClick={handleAddTask}>Add task</Button>
                         </div>
 
-                        <ul className="bg-stone-200 space-y-4 px-4 rounded">
-                            {/* {selectedProject.projectTasks && selectedProject.projectTasks.map(task => {
-                                return (
-                                    <li key={task.taskId} className="flex justify-between items-center first:pt-8 last:pb-8">
-                                        <div>{task.taskTitle}</div>
-                                        <Button isTypeText onClick={() => handleDeleteTask(task.taskId)}>Clear</Button>
-                                    </li>
-                                )
-                            })} */}
-                        </ul>
-                    </div>
-                </section>
-            </div>
-        </section>
+                        {!selectedProjectTasks.length && <p className="text-stone-800 my-4">This project does not have any tasks yet.</p>}
+
+                        {
+                            selectedProjectTasks.length > 0 && (
+                                <ul className="p-4 space-y-4 bg-stone-100 rounded-md">
+                                    {selectedProjectTasks.map(task => {
+                                        return (
+                                            <li key={task.taskId} className="flex justify-between items-center">
+                                                <div>{task.taskTitle}</div>
+                                                <Button isTypeText onClick={() => deleteTaskFromProjectHandler(task.taskId)}>Clear</Button>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            )
+                        }
+                    </section>
+                </div>
+            </section>
+        </>
     );
 }
