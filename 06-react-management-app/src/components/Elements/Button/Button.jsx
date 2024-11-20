@@ -1,4 +1,4 @@
-export default function Button({type = "button", isTypeText, isOnDarkBg, children, onClick, ...props}) {
+export default function Button({type = "button", isTypeText, isOnDarkBg, children, onClick}) {
     const defaultStyles = 'px-6 py-2 rounded-md outline-2 outline-offset-2 focus-visible:outline';
     const typeTextStyles = 'text-stone-800 outline-none hover:text-red-500 focus-visible:text-red-500 focus-visible:underline';
 
@@ -16,14 +16,12 @@ export default function Button({type = "button", isTypeText, isOnDarkBg, childre
     }
 
     return(
-        <div {...props}>
-            <button
-                type={type}
-                className={finalStyles}
-                onClick={onClick}
-            >
-                {children}
-            </button>
-        </div>
+        <button
+            type={type}
+            className={finalStyles}
+            onClick={onClick}
+        >
+            {children}
+        </button>
     );
 }
