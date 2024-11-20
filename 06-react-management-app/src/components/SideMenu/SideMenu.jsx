@@ -1,7 +1,11 @@
-import { useState } from 'react';
 import Button from '../Elements/Button/Button.jsx';
 
-export default function SideMenu({addProjectHandler, projectsList, projectSelectHandler, selectedProject}) {
+export default function SideMenu({
+    addProjectHandler,
+    projectsList,
+    projectSelectHandler,
+    selectedProjectId
+}) {
     const defaultprojectListItemStyles = 'w-full text-left text-stone-400 px-2 py-1 outline-2 outline-offset-2 outline-stone-100 hover:text-stone-100 hover:bg-stone-600 focus-visible:text-stone-100 focus-visible:bg-stone-600 focus-visible:outline';
     const activeProjectListItemStyles = 'text-stone-100 bg-stone-600';
 
@@ -21,7 +25,7 @@ export default function SideMenu({addProjectHandler, projectsList, projectSelect
                 {projectsList.map(item => {
                     let finalProjectListItemStyles;
 
-                    if (item.projectId === selectedProject) {
+                    if (item.projectId === selectedProjectId) {
                         finalProjectListItemStyles = `${defaultprojectListItemStyles} ${activeProjectListItemStyles}`;
                     } else {
                         finalProjectListItemStyles = defaultprojectListItemStyles;
