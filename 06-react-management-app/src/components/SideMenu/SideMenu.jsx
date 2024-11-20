@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Button from '../Elements/Button/Button.jsx';
 
 export default function SideMenu({addProjectHandler, projectsList, projectSelectHandler, selectedProject}) {
-    const defaultprojectListItemStyles = 'w-full text-left text-neutral-400 px-2 py-1 outline-2 outline-offset-2 outline-neutral-400 hover:text-neutral-300 hover:bg-stone-700 focus-visible:text-neutral-300 focus-visible:bg-stone-700 focus-visible:bg-stone-700 focus-visible:outline';
-    const activeProjectListItemStyles = 'text-neutral-300 bg-stone-700';
+    const defaultprojectListItemStyles = 'w-full text-left text-stone-400 px-2 py-1 outline-2 outline-offset-2 outline-stone-100 hover:text-stone-100 hover:bg-stone-600 focus-visible:text-stone-100 focus-visible:bg-stone-600 focus-visible:outline';
+    const activeProjectListItemStyles = 'text-stone-100 bg-stone-600';
 
     return(
         <aside className="h-full w-80 flex flex-col px-8 py-16 bg-stone-900 text-stone-50 rounded-tr-2xl">
