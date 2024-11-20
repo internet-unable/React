@@ -3,19 +3,29 @@ import { useRef, useState } from 'react';
 import Button from "../../Elements/Button/Button.jsx";
 import Input from "../../Elements/Input/Input.jsx";
 
-export default function ProjectDetailsPanel({ selectedProject, deleteProject, addTaskToProject, deleteTaskFromProject }) {
+export default function ProjectDetailsPanel({
+    selectedProject,
+    deleteProjectHandler,
+    addTaskToProjectHandler,
+    deleteTaskFromProjectHandler
+}) {
     const taskTitle = useRef();
     const [isTaskValid, setIsTaskValid] = useState(true);
+    const formattedDate = new Date(selectedProject.projectDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
 
     function handleDeleteProject() {
-        deleteProject(selectedProject.projectId);
+        deleteProjectHandler(selectedProject.projectId);
     }
 
     function handleAddTask() {
         if (!taskTitle.current.value.trim()) {
             setIsTaskValid(false);
         } else {
-            addTaskToProject(selectedProject.projectId, {
+            addTaskToProjectHandler(selectedProject.projectId, {
                 taskId: `${selectedProject.projectId}-t${Math.random()}`,
                 taskTitle: taskTitle.current.value.trim()
             });
@@ -25,24 +35,24 @@ export default function ProjectDetailsPanel({ selectedProject, deleteProject, ad
     }
 
     function handleDeleteTask(taskId) {
-        deleteTaskFromProject(selectedProject.projectId, taskId);
+        deleteTaskFromProjectHandler(selectedProject.projectId, taskId);
     }
 
     return (
         <section className="h-full flex flex-col items-center grow py-16 pr-40 overflow-auto">
             <div className="w-full max-w-screen-md">
                 <div className="mb-4">
-                    <ul className="flex flex-row justify-between items-center w-full">
+                    <ul className="w-full flex flex-row justify-between items-center">
                         <li>
-                            {selectedProject.projectTitle && <h1 className="text-2xl font-semibold mb-2">{selectedProject.projectTitle}</h1>}
+                            <h1 className="text-3xl font-bold text-stone-600 mb-2">{selectedProject.projectTitle}</h1>
                         </li>
                         <li>
                             <Button isTypeText onClick={handleDeleteProject}>Delete</Button>
                         </li>
                     </ul>
 
-                    {selectedProject.projectDate && <p className="text-stone-500 mb-4">{new Date(selectedProject.projectDate).toDateString()}</p>}
-                    {selectedProject.projectDesc && <p>{selectedProject.projectDesc}</p>}
+                    <p className="text-stone-400 mb-4">{formattedDate}</p>
+                    <p className="text-stone-600 whitespace-pre-wrap">{selectedProject.projectDesc}</p>
                 </div>
 
                 <hr className="mb-4" />
