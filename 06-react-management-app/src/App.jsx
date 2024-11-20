@@ -8,7 +8,7 @@ import ProjectDetailsPanel from "./components/Panels/ProjectDetailsPanel/Project
 
 function App() {
     const [appState, setAppState] = useState({
-        selectedProject: undefined,
+        selectedProjectId: undefined,
         // undefined - NoProjectSelectedPanel
         // null - CreateProjectPanel
         // projectId - ProjectDetailsPanel
@@ -19,7 +19,7 @@ function App() {
         setAppState(prevState => {
             return {
                 ...prevState,
-                selectedProject: null
+                selectedProjectId: null
             }
         });
     }
@@ -28,7 +28,7 @@ function App() {
         setAppState(prevState => {
             return {
                 ...prevState,
-                selectedProject: undefined,
+                selectedProjectId: undefined,
             }
         });
     }
@@ -37,7 +37,7 @@ function App() {
         setAppState(prevState => {
             return {
                 ...prevState,
-                selectedProject: undefined,
+                selectedProjectId: undefined,
                 projectsList: [
                     ...prevState.projectsList,
                     newProject
@@ -51,23 +51,17 @@ function App() {
         setAppState(prevState => {
             return {
                 ...prevState,
-                selectedProject: projectId
+                selectedProjectId: projectId
             };
         });
     }
 
-    function handleDeleteProject(projectId) {
+    function handleDeleteProject() {
         setAppState(prevState => {
-            const deepClone = structuredClone(prevList);
-            const indexOfCurrentProject = deepClone.indexOf(deepClone.find(item => item.projectId === projectId));
-            deepClone.splice(indexOfCurrentProject, 1);
-
             return {
                 ...prevState,
-                selectedProject: undefined,
-                projectsList: [
-                    ...deepClone
-                ]
+                selectedProjectId: undefined,
+                projectsList: prevState.projectsList.filter(item => item.projectId !== prevState.selectedProjectId)
             }
         });
     }
@@ -106,17 +100,17 @@ function App() {
                 addProjectHandler={handleAddProject}
                 projectsList={appState.projectsList}
                 projectSelectHandler={handleProjectSelect}
-                selectedProject={appState.selectedProject}
+                selectedProjectId={appState.selectedProjectId}
             />
 
             {
-                appState.selectedProject === undefined && (
+                appState.selectedProjectId === undefined && (
                     <NoProjectSelectedPanel addProjectHandler={handleAddProject} />
                 )
             }
 
             {
-                appState.selectedProject === null &&
+                appState.selectedProjectId === null &&
                 (<CreateProjectPanel
                     saveProjectHandler={handleSaveProject}
                     cancelProjectCreationHandler={handleCancelProjectCreation}
@@ -124,12 +118,12 @@ function App() {
             }
 
             {
-                appState.selectedProject && (
+                appState.selectedProjectId && (
                     <ProjectDetailsPanel
-                        selectedProject={appState.projectsList.find(item => item.projectId === appState.selectedProject)}
-                        deleteProject={handleDeleteProject}
-                        addTaskToProject={handleAddTaskToProject}
-                        deleteTaskFromProject={handleDeleteTaskFromProject}
+                        selectedProject={appState.projectsList.find(item => item.projectId === appState.selectedProjectId)}
+                        deleteProjectHandler={handleDeleteProject}
+                        addTaskToProjectHandler={handleAddTaskToProject}
+                        deleteTaskFromProjectHandler={handleDeleteTaskFromProject}
                     />
                 )
             }
