@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { DUMMY_PRODUCTS } from './dummy-products.js';
 
+import { CartContext } from './store/shoping-cart-context.jsx';
 import Header from './components/Header.jsx';
 import Shop from './components/Shop.jsx';
 import Product from './Product.jsx';
@@ -67,20 +68,24 @@ function App() {
         });
     }
 
+    const ctxValue = {
+        items: shoppingCart,
+        addItemToCart: handleAddItemToCart,
+        updateCartItemQuantity: handleUpdateCartItemQuantity
+    }
+
     return (
-        <>
-            <Header
-                cart={shoppingCart}
-                onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-            />
+        <CartContext.Provider value={ctxValue}>
+            <Header />
+
             <Shop>
                 {DUMMY_PRODUCTS.map((product) => (
                     <li key={product.id}>
-                        <Product {...product} onAddToCart={handleAddItemToCart} />
+                        <Product {...product} />
                     </li>
                 ))}
             </Shop>
-        </>
+        </CartContext.Provider>
     );
 }
 
