@@ -1,4 +1,4 @@
-import { userContext } from 'react';
+import { useContext } from 'react';
 import { CartContext } from "../store/shoping-cart-context";
 
 export default function Product({
@@ -8,7 +8,7 @@ export default function Product({
     price,
     description
 }) {
-    const { addItemToCart } = userContext(CartContext);
+    const { addItemToCart } = useContext(CartContext);
 
     return (
         <article className="product">
