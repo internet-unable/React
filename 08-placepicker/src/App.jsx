@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import { AVAILABLE_PLACES } from './data.js';
 import logoImg from './assets/logo.png';
@@ -18,7 +18,6 @@ function App() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
     const [availablePlaces, setAvailablePlaces] = useState([]);
-
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -56,7 +55,7 @@ function App() {
         }
     }
 
-    function handleRemovePlace() {
+    const handleRemovePlace = useCallback(() => {
         setPickedPlaces((prevPickedPlaces) =>
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
         );
@@ -64,7 +63,7 @@ function App() {
 
         const storadeIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
         localStorage.setItem('selectedPlaces', JSON.stringify(storadeIds.filter(id => id !== selectedPlace.current)));
-    }
+    }, []);
 
     return (
         <>
