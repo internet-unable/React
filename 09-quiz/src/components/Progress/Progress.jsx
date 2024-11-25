@@ -2,26 +2,30 @@ import { useEffect, useState } from "react";
 
 const INTERVAL = 10;
 
-export default function Progress({ timeout }) {
-    const [progressValue, setProgressValue] = useState(timeout);
+export default function Progress({ timeOut, timeOutHandler }) {
+    const [progressValue, setProgressValue] = useState(timeOut);
 
     useEffect(() => {
-        let interval;
+        console.log('Setting timeout');
+        const timeout = setTimeout(timeOutHandler, timeOut);
 
-        if (progressValue > 0) {
-            interval = setInterval(() => {
-                setProgressValue(prevState => {
-                    return prevState - INTERVAL;
-                })
-            }, INTERVAL);
+        return () => {
+            clearTimeout(timeout);
         }
+    }, [timeOut, timeOutHandler]);
+
+    useEffect(() => {
+        console.log('Setting interval');
+        const interval = setInterval(() => {
+            setProgressValue(prevState => prevState - INTERVAL);
+        }, INTERVAL);
 
         return () => {
             clearInterval(interval);
         }
-    }, [progressValue]);
+    }, []);
 
     return (
-        <progress max={timeout} value={progressValue} />
+        <progress id="question-time" max={timeOut} value={progressValue} />
     );
 }
