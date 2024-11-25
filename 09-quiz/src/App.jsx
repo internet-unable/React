@@ -31,7 +31,7 @@ function App() {
         <>
             {QUESTIONS_BLUEPRINT[currentQuestionIndex] && (
                 <div id="quiz">
-                    <QuestionPanel index={currentQuestionIndex} />
+                    <QuestionPanel index={currentQuestionIndex} timeout={TIMEOUT} />
                 </div>
             )}
 
