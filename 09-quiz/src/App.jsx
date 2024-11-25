@@ -6,38 +6,51 @@ import SummaryPanel from './components/SummaryPanel/SummaryPanel.jsx';
 const TIMEOUT = 10000;
 
 function App() {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [userAnswers, setUserAnswers] = useState([]);
+    const currentQuestionIndex = userAnswers.length;
+    const isQuestionsAreOver = currentQuestionIndex === QUESTIONS_BLUEPRINT.length;
 
-    useEffect(() => {
-        let timeout;
+    function handleAnswerSelect(answerId) {
+        setUserAnswers(prevState => {
+            return [...prevState, answerId];
+        });
+    }
 
-        if (currentQuestionIndex !== null) {
-            timeout = setTimeout(() => {
-                if (QUESTIONS_BLUEPRINT[currentQuestionIndex + 1]) {
-                    setCurrentQuestionIndex(currentQuestionIndex + 1);
-                } else {
-                    setCurrentQuestionIndex(null);
-                    clearTimeout(timeout);
-                }
-            }, TIMEOUT);
-        }
+    // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    // const [userAnswers, setUserAnswers] = useState([]);
+    // const currentQuestionIndex = userAnswers.length;
 
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [currentQuestionIndex]);
+    // useEffect(() => {
+    //     let timeout;
+
+    //     if (currentQuestionIndex !== null) {
+    //         timeout = setTimeout(() => {
+    //             if (QUESTIONS_BLUEPRINT[currentQuestionIndex + 1]) {
+    //                 setCurrentQuestionIndex(currentQuestionIndex + 1);
+    //             } else {
+    //                 setCurrentQuestionIndex(null);
+    //                 clearTimeout(timeout);
+    //             }
+    //         }, TIMEOUT);
+    //     }
+
+    //     return () => {
+    //         clearTimeout(timeout);
+    //     }
+    // }, [currentQuestionIndex]);
 
     return(
         <>
-            {QUESTIONS_BLUEPRINT[currentQuestionIndex] && (
+            {!isQuestionsAreOver && (
                 <div id="quiz">
-                    <QuestionPanel index={currentQuestionIndex} timeout={TIMEOUT} />
+                    <QuestionPanel
+                        index={currentQuestionIndex}
+                        answerSelectHandler={handleAnswerSelect}
+                    />
                 </div>
             )}
 
-            {!QUESTIONS_BLUEPRINT[currentQuestionIndex] && (
-                <SummaryPanel />
-            )}
+            {isQuestionsAreOver && <SummaryPanel />}
         </>
     );
 }
