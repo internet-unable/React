@@ -6,22 +6,22 @@ export const QUESTIONS_BLUEPRINT = [
             {
                 answerId: 'q1-a1',
                 answerText: 'Question-1 - Answer-1',
-                isAnswerRight: true
+                isAnswerCorrect: true
             },
             {
                 answerId: 'q1-a2',
                 answerText: 'Question-1 - Answer-2',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q1-a3',
                 answerText: 'Question-1 - Answer-3',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q1-a4',
                 answerText: 'Question-1 - Answer-4',
-                isAnswerRight: false
+                isAnswerCorrect: false
             }
         ]
     },
@@ -32,22 +32,22 @@ export const QUESTIONS_BLUEPRINT = [
             {
                 answerId: 'q2-a1',
                 answerText: 'Question-2 - Answer-1',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q2-a2',
                 answerText: 'Question-2 - Answer-2',
-                isAnswerRight: true
+                isAnswerCorrect: true
             },
             {
                 answerId: 'q2-a3',
                 answerText: 'Question-2 - Answer-3',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q2-a4',
                 answerText: 'Question-2 - Answer-4',
-                isAnswerRight: false
+                isAnswerCorrect: false
             }
         ]
     },
@@ -58,22 +58,22 @@ export const QUESTIONS_BLUEPRINT = [
             {
                 answerId: 'q3-a1',
                 answerText: 'Question-3 - Answer-1',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q3-a2',
                 answerText: 'Question-3 - Answer-2',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q3-a3',
                 answerText: 'Question-3 - Answer-3',
-                isAnswerRight: true
+                isAnswerCorrect: true
             },
             {
                 answerId: 'q3-a4',
                 answerText: 'Question-3 - Answer-4',
-                isAnswerRight: false
+                isAnswerCorrect: false
             }
         ]
     },
@@ -84,22 +84,22 @@ export const QUESTIONS_BLUEPRINT = [
             {
                 answerId: 'q4-a1',
                 answerText: 'Question-4 - Answer-1',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q4-a2',
                 answerText: 'Question-4 - Answer-2',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q4-a3',
                 answerText: 'Question-4 - Answer-3',
-                isAnswerRight: false
+                isAnswerCorrect: false
             },
             {
                 answerId: 'q4-a4',
                 answerText: 'Question-4 - Answer-4',
-                isAnswerRight: true
+                isAnswerCorrect: true
             }
         ]
     }
