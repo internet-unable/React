@@ -1,28 +1,20 @@
-import { useState, useCallback } from 'react';
+import { QUESTIONS_BLUEPRINT } from '../../data.js';
 import Progress from '../Progress/Progress.jsx';
 import Answer from '../Answer/Answer.jsx';
-import { QUESTIONS_BLUEPRINT } from '../../data.js';
 
-const TIMEOUT = 10000;
-
-export default function QuestionPanel({ index, answerSelectHandler, skipAnswerHandler }) {
-    const handleTimeOut = useCallback(() => skipAnswerHandler());
-
+export default function QuestionPanel({ index }) {
     return (
         <div id="question">
-            <Progress
-                key={index}
-                timeOut={TIMEOUT}
-                timeOutHandler={handleTimeOut}
-            />
+            <Progress key={index} />
+
             <h2>{QUESTIONS_BLUEPRINT[index].questionText}</h2>
+
             <ul id="answers">
                 {QUESTIONS_BLUEPRINT[index].answers.map(answer => (
                     <Answer
                         key={answer.answerId}
                         id={answer.answerId}
                         text={answer.answerText}
-                        answerSelectHandler={answerSelectHandler}
                     />
                 ))}
             </ul>

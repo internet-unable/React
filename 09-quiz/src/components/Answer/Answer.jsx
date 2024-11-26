@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../../store/app-context.jsx';
 
-export default function Answer({ id, text, answerSelectHandler }) {
-    // const [selectedAnswerStyles, setSelectedAnswerStyles] = useState('');
+export default function Answer({ id, text }) {
+    const { answerSelect } = useContext(AppContext);
+    // let styles = '';
 
     return (
         <li className="answer">
             <button
                 type="button"
-                // className={selectedAnswerStyles}
-                onClick={() => answerSelectHandler(id)}
+                // className=""
+                onClick={() => answerSelect(id)}
             >
                 {text}
             </button>

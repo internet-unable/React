@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from '../../store/app-context.jsx';
 
+const TIMEOUT = 10000;
 const INTERVAL = 10;
 
-export default function Progress({ timeOut, timeOutHandler }) {
-    const [progressValue, setProgressValue] = useState(timeOut);
+export default function Progress() {
+    const [progressValue, setProgressValue] = useState(TIMEOUT);
+    const { answerSkip } = useContext(AppContext);
 
     useEffect(() => {
         console.log('Setting timeout');
-        const timeout = setTimeout(timeOutHandler, timeOut);
+        const timeout = setTimeout(answerSkip, TIMEOUT);
 
         return () => {
             clearTimeout(timeout);
         }
-    }, [timeOut, timeOutHandler]);
+    }, [TIMEOUT, answerSkip]);
 
     useEffect(() => {
         console.log('Setting interval');
@@ -26,6 +29,6 @@ export default function Progress({ timeOut, timeOutHandler }) {
     }, []);
 
     return (
-        <progress id="question-time" max={timeOut} value={progressValue} />
+        <progress id="question-time" max={TIMEOUT} value={progressValue} />
     );
 }
