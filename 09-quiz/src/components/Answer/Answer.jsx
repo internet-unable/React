@@ -1,16 +1,24 @@
-import { useContext } from 'react';
-import { AppContext } from '../../store/app-context.jsx';
-
-export default function Answer({ id, text }) {
-    const { answerSelect } = useContext(AppContext);
-    // let styles = '';
+export default function Answer({ id, text, answerState, answerSelectHandler }) {
+    let styles = '';
+    if (answerState.selectedAnswer === id) {
+        if (answerState.isSelectedAnswerCorrect === null) {
+            styles = 'selected';
+        }
+        if (answerState.isSelectedAnswerCorrect === true) {
+            styles = 'correct';
+        }
+        if (answerState.isSelectedAnswerCorrect === false) {
+            styles = 'wrong';
+        }
+    }
 
     return (
         <li className="answer">
             <button
                 type="button"
-                // className=""
-                onClick={() => answerSelect(id)}
+                className={styles}
+                onClick={() => answerSelectHandler(id)}
+                disabled={styles !== ''}
             >
                 {text}
             </button>
