@@ -1,34 +1,37 @@
-import { useEffect, useState, useContext } from "react";
-import { AppContext } from '../../store/app-context.jsx';
+import { useEffect, useState } from "react";
 
-const TIMEOUT = 10000;
-const INTERVAL = 10;
-
-export default function Progress() {
-    const [progressValue, setProgressValue] = useState(TIMEOUT);
-    const { answerSkip } = useContext(AppContext);
+export default function Progress({ timeout, interval = 10, answerState, answerSkipHandler }) {
+    const [progressValue, setProgressValue] = useState(timeout);
+    let styles = '';
+    if (answerState.selectedAnswer && answerState.isSelectedAnswerCorrect === null) {
+        styles = 'answered';
+    }
+    if (answerState.isSelectedAnswerCorrect === true) {
+        styles = 'correct';
+    }
+    if (answerState.isSelectedAnswerCorrect === false) {
+        styles = 'wrong';
+    }
 
     useEffect(() => {
-        console.log('Setting timeout');
-        const timeout = setTimeout(answerSkip, TIMEOUT);
+        const timeO = setTimeout(answerSkipHandler, timeout);
 
         return () => {
-            clearTimeout(timeout);
+            clearTimeout(timeO);
         }
-    }, [TIMEOUT, answerSkip]);
+    }, [timeout, answerSkipHandler]);
 
     useEffect(() => {
-        console.log('Setting interval');
-        const interval = setInterval(() => {
-            setProgressValue(prevState => prevState - INTERVAL);
-        }, INTERVAL);
+        const interV = setInterval(() => {
+            setProgressValue(prevState => prevState - interval);
+        }, interval);
 
         return () => {
-            clearInterval(interval);
+            clearInterval(interV);
         }
     }, []);
 
     return (
-        <progress id="question-time" max={TIMEOUT} value={progressValue} />
+        <progress id="question-time" max={timeout} value={progressValue} className={styles} />
     );
 }
