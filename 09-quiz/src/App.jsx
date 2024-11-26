@@ -6,8 +6,8 @@ import QuestionPanel from './components/QuestionPanel/QuestionPanel.jsx';
 import SummaryPanel from './components/SummaryPanel/SummaryPanel.jsx';
 
 function App() {
-    const [userAnswers, setUserAnswers] = useState([]);
-    const currentQuestionIndex = userAnswers.length;
+    const [userAnswers, setUserAnswers] = useState(null);
+    const currentQuestionIndex = userAnswers !== null ? userAnswers.length : null;
     const isQuestionsAreOver = currentQuestionIndex === QUESTIONS_BLUEPRINT.length;
 
     function handleUpdateUserAnswers(answerId) {
@@ -16,9 +16,17 @@ function App() {
         });
     }
 
+    function handleStartQuiz() {
+        setUserAnswers([]);
+    }
+
     return (
         <>
-            {!isQuestionsAreOver && (
+            {userAnswers === null && (
+                <button type="button" onClick={handleStartQuiz}>Start quiz</button>
+            )}
+
+            {userAnswers !== null && !isQuestionsAreOver && (
                 <div id="quiz">
                     <QuestionPanel
                         key={currentQuestionIndex}
@@ -28,7 +36,12 @@ function App() {
                 </div>
             )}
 
-            {isQuestionsAreOver && <SummaryPanel />}
+            {userAnswers !== null && isQuestionsAreOver && (
+                <>
+                    <button type="button" onClick={handleStartQuiz}>Restart quiz</button>
+                    <SummaryPanel />
+                </>
+            )}
         </>
     );
 }
