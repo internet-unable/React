@@ -39,7 +39,7 @@ function App() {
             {userAnswers !== null && isQuestionsAreOver && (
                 <>
                     <button type="button" onClick={handleStartQuiz}>Restart quiz</button>
-                    <SummaryPanel />
+                    <SummaryPanel quizResults={userAnswers} />
                 </>
             )}
         </>
