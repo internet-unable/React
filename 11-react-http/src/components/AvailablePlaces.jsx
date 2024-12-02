@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ErrorCmp from './ErrorCmp.jsx';
 import Places from './Places.jsx';
+import { sortPlacesByDistance } from '../loc.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
     const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -13,44 +14,26 @@ export default function AvailablePlaces({ onSelectPlace }) {
             setIsFetching(true);
 
             try {
-                const response = await fetch('http://localhost:3000/placesp');
+                const response = await fetch('http://localhost:3000/places');
                 const resData = await response.json();
 
                 if (response.ok) { // status code 200/300
-                    setAvailablePlaces(resData.places);
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const sortedPlaces = sortPlacesByDistance(resData.places, position.coords.latitude, position.coords.longitude);
+                        setAvailablePlaces(sortedPlaces);
+                        setIsFetching(false);
+                    });
                 } else { // status code 400/500
                     throw new Error('Failed to fetch places');
                 }
             } catch (error) {
                 setError(error);
+                setIsFetching(false);
             }
-
-            setIsFetching(false);
         }
 
         fetchPlaces();
     }, []);
-
-    // using .then
-    // useEffect(() => {
-    //     setIsFetching(true);
-
-    //     try {
-    //         fetch('http://localhost:3000/places').then((response) => {
-    //             return response.json();
-    //         }).then((resData) => {
-    //             if (resData.ok) { // status code 200/300
-    //                 setAvailablePlaces(resData.places);
-    //                 setIsFetching(false);
-    //             } else { // status code 400/500
-    //                 throw new Error('Failed to fetch places');
-    //             }
-    //         });
-    //     } catch (error) {
-    //         setError(error);
-    //         setIsFetching(false);
-    //     }
-    // }, []);
     // no dependecies, so useEffect will execute only once, AFTER component execution
 
     if (error) {
