@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import ErrorCmp from './ErrorCmp.jsx';
 import Places from './Places.jsx';
+import ErrorCmp from './ErrorCmp.jsx';
 import { sortPlacesByDistance } from '../loc.js';
 import { fetchAvailablePlaces } from '../http.js'
 
