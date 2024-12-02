@@ -11,6 +11,7 @@ import { updateUserPlaces } from './http.js';
 function App() {
     const selectedPlace = useRef();
     const [userPlaces, setUserPlaces] = useState([]);
+    const [userPlacesUpdateFailed, setUserPlacesUpdateFailed] = useState();
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     function handleStartRemovePlace(place) {
@@ -34,9 +35,11 @@ function App() {
         });
 
         try {
-            const response = await updateUserPlaces([selectedPlace, ...userPlaces]);
-        } catch(error) {
-            // 
+            await updateUserPlaces([selectedPlace, ...userPlaces]);
+        } catch (error) {
+            // if request failed - setUserPlaces to prev state
+            setUserPlaces(userPlaces);
+            setUserPlacesUpdateFailed({ message: error.message || 'Failed to update places' });
         }
     }
 
@@ -48,8 +51,22 @@ function App() {
         setModalIsOpen(false);
     }, []);
 
+    function handleUserPlacesUpdateFailedError() {
+        setUserPlacesUpdateFailed(null);
+    }
+
     return (
         <>
+            <Modal open={userPlacesUpdateFailed} onClose={handleUserPlacesUpdateFailedError}>
+                {userPlacesUpdateFailed && (
+                    <ErrorCmp
+                        title="An error occurred!"
+                        message={userPlacesUpdateFailed.message}
+                        onConfirm={handleUserPlacesUpdateFailedError}
+                    />
+                )}
+            </Modal>
+
             <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
                 <DeleteConfirmation
                     onCancel={handleStopRemovePlace}
@@ -66,6 +83,7 @@ function App() {
                 </p>
             </header>
             <main>
+                { }
                 <Places
                     title="I'd like to visit ..."
                     fallbackText="Select the places you would like to visit below."
