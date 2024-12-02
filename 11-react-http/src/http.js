@@ -29,3 +29,16 @@ export async function updateUserPlaces(places) {
         throw new Error("Failed to update user data");
     }
 }
+
+export async function fetchUserPlaces() {
+    const response = await fetch("http://localhost:3000/user-places");
+    const resData = await response.json();
+
+    if (response.ok) {
+        // status code 200/300
+        return resData.places;
+    } else {
+        // status code 400/500
+        throw new Error("Failed to fetch user places");
+    }
+}
