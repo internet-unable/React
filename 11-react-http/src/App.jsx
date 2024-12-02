@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 
 import logoImg from './assets/logo.png';
 import Places from './components/Places.jsx';
@@ -6,13 +6,31 @@ import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
 import ErrorCmp from './components/ErrorCmp.jsx';
-import { updateUserPlaces } from './http.js';
+import { updateUserPlaces, fetchUserPlaces } from './http.js';
 
 function App() {
     const selectedPlace = useRef();
     const [userPlaces, setUserPlaces] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
+    const [error, setError] = useState();
+
     const [userPlacesUpdateFailed, setUserPlacesUpdateFailed] = useState();
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    useEffect(() => {
+        async function fetchPlaces() {
+            setIsFetching(true);
+            try {
+                const places = await fetchUserPlaces();
+                setUserPlaces(places);
+            } catch (error) {
+                setError({ message: message.error || 'Failed to feth user places' });
+            }
+            setIsFetching(false);
+        };
+
+        fetchPlaces();
+    }, []);
 
     function handleStartRemovePlace(place) {
         setModalIsOpen(true);
@@ -47,9 +65,17 @@ function App() {
         setUserPlaces((prevPickedPlaces) =>
             prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
         );
-
         setModalIsOpen(false);
-    }, []);
+
+        try {
+            // delete place
+            await updateUserPlaces(userPlaces.filter(place => place.id !== selectedPlace.current.id));
+        } catch (error) {
+            // if request failed - setUserPlaces to prev state
+            setUserPlaces(userPlaces);
+            setUserPlacesUpdateFailed({ message: error.message || 'Failed to delete place' });
+        }
+    }, [userPlaces]);
 
     function handleUserPlacesUpdateFailedError() {
         setUserPlacesUpdateFailed(null);
@@ -82,14 +108,24 @@ function App() {
                     you have visited.
                 </p>
             </header>
+
             <main>
-                { }
-                <Places
-                    title="I'd like to visit ..."
-                    fallbackText="Select the places you would like to visit below."
-                    places={userPlaces}
-                    onSelectPlace={handleStartRemovePlace}
-                />
+                {error && (
+                    <ErrorCmp
+                        title="An error occurred!"
+                        message={error.message}
+                    />
+                )}
+
+                {!error && (
+                    <Places
+                        title="I'd like to visit ..."
+                        fallbackText="Select the places you would like to visit below."
+                        places={userPlaces}
+                        onSelectPlace={handleStartRemovePlace}
+                        isLoading={isFetching}
+                    />
+                )}
 
                 <AvailablePlaces onSelectPlace={handleSelectPlace} />
             </main>
