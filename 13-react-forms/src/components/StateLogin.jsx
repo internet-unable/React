@@ -12,23 +12,38 @@ export default function StateLogin() {
     //     setPasswordInput(event.target.value);
     // }
 
+    const [inputsValue, setInputsValue] = useState({
+        email: '',
+        password: ''
+    });
+    const [didEdit, setDidEdit] = useState({
+        email: false,
+        password: false
+    });
+    const isEmailValid = didEdit.email && !inputsValue.email.includes('@');
+
     function handleFormSubmit(event) {
         event.preventDefault();
         console.log(inputsValue);
     }
 
-    const [inputsValue, setInputsValue] = useState({
-        email: '',
-        password: ''
-    });
-
     function handleInputChange(inputType, value) {
-        setInputsValue(prevState => {
-            return {
-                ...prevState,
-                [inputType]: value
-            }
-        });
+        setInputsValue(prevState => ({
+            ...prevState,
+            [inputType]: value
+        }));
+
+        setDidEdit(prevState => ({
+            ...prevState,
+            [inputType]: false
+        }));
+    }
+
+    function handleInputBlur(inputType) {
+        setDidEdit(prevState => ({
+            ...prevState,
+            [inputType]: true
+        }));
     }
 
     return (
@@ -44,9 +59,11 @@ export default function StateLogin() {
                         name="email"
                         // onChange={handleEmailInputChange}
                         // value={emailInput}
+                        onBlur={() => handleInputBlur("email")}
                         onChange={() => handleInputChange("email", event.target.value)}
                         value={inputsValue.email}
                     />
+                    <div className="control-error">{isEmailValid && <p>Please enter a valid email adress</p>}</div>
                 </div>
 
                 <div className="control no-margin">
@@ -57,6 +74,7 @@ export default function StateLogin() {
                         name="password"
                         // onChange={handlePasswordInputChange}
                         // value={passwordInput}
+                        onBlur={() => handleInputBlur("password")}
                         onChange={() => handleInputChange("password", event.target.value)}
                         value={inputsValue.password}
                     />
@@ -67,8 +85,8 @@ export default function StateLogin() {
                 <button type="button" className="button button-flat">Reset</button>
                 <button
                     className="button"
-                    // type="button"
-                    // onClick={handleFormSubmit}
+                // type="button"
+                // onClick={handleFormSubmit}
                 >
                     Login
                 </button>
