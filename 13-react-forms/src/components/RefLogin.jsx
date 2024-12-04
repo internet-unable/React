@@ -3,16 +3,16 @@ import { useRef, useState } from "react";
 export default function Ref() {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [emailIsNotValid, setEmailIsNotValid] = useState(null);
 
     function handleFormSubmit(event) {
         event.preventDefault();
         const isEmailIncludes = emailRef.current.value.includes('@');
 
         if (!isEmailIncludes) {
-            setIsEmailValid(true);
+            setEmailIsNotValid(true);
         } else {
-            setIsEmailValid(false);
+            setEmailIsNotValid(false);
         }
     }
 
@@ -29,7 +29,7 @@ export default function Ref() {
                         name="email"
                         ref={emailRef}
                     />
-                    <div className="control-error">{isEmailValid && <p>Please enter a valid email adress</p>}</div>
+                    <div className="control-error">{emailIsNotValid && <p>Please enter a valid email adress</p>}</div>
                 </div>
 
                 <div className="control no-margin">
