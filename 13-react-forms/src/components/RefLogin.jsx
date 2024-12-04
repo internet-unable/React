@@ -1,13 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Ref() {
     const emailRef = useRef();
     const passwordRef = useRef();
+    const [isEmailValid, setIsEmailValid] = useState(false);
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        console.log(emailRef.current.value);
-        console.log(passwordRef.current.value);
+        const isEmailIncludes = emailRef.current.value.includes('@');
+
+        if (!isEmailIncludes) {
+            setIsEmailValid(true);
+        } else {
+            setIsEmailValid(false);
+        }
     }
 
     return (
@@ -23,6 +29,7 @@ export default function Ref() {
                         name="email"
                         ref={emailRef}
                     />
+                    <div className="control-error">{isEmailValid && <p>Please enter a valid email adress</p>}</div>
                 </div>
 
                 <div className="control no-margin">
