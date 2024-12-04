@@ -1,13 +1,15 @@
-export default function Product() {
+export default function Product({ props }) {
     return (
-        <li className="meal-item">
-            <article>
-                <img />
-                <h3>Mac & Cheese</h3>
-                <p className="meal-item-price">$8.99</p>
-                <p className="meal-item-description">Creamy cheddar cheese mixed with perfeclty cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.</p>
+        <article>
+            <img src={`http://localhost:3000/${props.image}`} alt={props.description} />
+            <h3>{props.name}</h3>
+            <div>
+                <p className="meal-item-price">${props.price}</p>
+            </div>
+            <p className="meal-item-description">{props.description}</p>
+            <div>
                 <button type="button" className="button meal-item-actions">Add to cart</button>
-            </article>
-        </li>
+            </div>
+        </article>
     );
 }
