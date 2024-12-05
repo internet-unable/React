@@ -37,10 +37,19 @@ function App() {
         // 
     }
 
+    function handleAddMealToCart(meal) {
+        setCart(prevState => {
+            return [
+                ...prevState,
+                meal
+            ]
+        });
+    }
+
     return (
         <>
             <Modal>
-                <Cart props={cart} />
+                <Cart cart={cart} />
             </Modal>
 
             {/* <Modal>
@@ -68,7 +77,7 @@ function App() {
                     <ul id="meals-list">
                         {meals.map(meal => (
                             <li className="meal-item" key={meal.id}>
-                                <Product props={meal} />
+                                <Product product={meal} onAddMealToCart={handleAddMealToCart} />
                             </li>
                         ))}
                     </ul>
