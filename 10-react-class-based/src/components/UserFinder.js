@@ -1,8 +1,8 @@
 import { Component, Fragment } from "react";
 
-import UsersContext from "../store/users-context";
+import UsersContext from "../store/users-context.js";
 import ErrorBoundary from "./ErrorBoundary.js"
-import Users from "./Users";
+import Users from "./Users.js";
 import classes from "./UserFinder.module.css";
 
 class UserFinder extends Component {
