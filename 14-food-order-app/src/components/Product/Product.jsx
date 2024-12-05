@@ -1,11 +1,17 @@
+import { useContext } from 'react';
+import { AppContext } from '../../store/cart-context.jsx';
+
 export default function Product({ product, onAddMealToCart }) {
-    function handleAddToCartClick() {
-        onAddMealToCart({
+    const { addItemToCart } = useContext(AppContext);
+
+    function handleAddMealToCart() {
+        addItemToCart({
             id: product.id,
             name: product.name,
             price: product.price
         });
     }
+
     return (
         <article>
             <img src={`http://localhost:3000/${product.image}`} alt={product.description} />
@@ -18,7 +24,7 @@ export default function Product({ product, onAddMealToCart }) {
                 <button
                     type="button"
                     className="button meal-item-actions"
-                    onClick={handleAddToCartClick}
+                    onClick={handleAddMealToCart}
                 >
                     Add to cart
                 </button>
