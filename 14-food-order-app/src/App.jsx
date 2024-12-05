@@ -5,37 +5,45 @@ import Checkout from './components/Checkout/Checkout.jsx'
 import Product from './components/Product/Product.jsx';
 
 function App() {
-    const [isMealsFetching, setIsMealsFetching] = useState(false);
+    const [areMealsFetching, setAreMealsFetching] = useState(false);
     const [meals, setMeals] = useState([]);
+    const [mealsFetchingError, setMealsFetchingError] = useState(false);
+    const [cart, setCart] = useState([]);
 
     useEffect(() => {
         async function fetchMeals() {
-            setIsMealsFetching(true);
+            setAreMealsFetching(true);
             try {
                 const response = await fetch("http://localhost:3000/meals");
                 const meals = await response.json();
 
+                setAreMealsFetching(false);
                 if (response.ok) {
                     // status code 200/300
                     setMeals(meals);
                 } else {
                     // status code 400/500
-                    // throw new Error("Failed to fetch user places");
+                    throw new Error("Failed to fetch meals");
                 }
-
             } catch (error) {
-                // setError({ message: message.error || 'Failed to feth user places' });
+                setMealsFetchingError({ message: error.message || 'Failed to fetch meals' });
             }
-            setIsMealsFetching(false);
         };
 
         fetchMeals();
     }, []);
 
+    function handleOpenCart() {
+        // 
+    }
+
     return (
         <>
+            <Modal>
+                <Cart props={cart} />
+            </Modal>
+
             {/* <Modal>
-                <Cart />
                 <Checkout />
             </Modal> */}
 
@@ -44,18 +52,28 @@ function App() {
                     <img />
                     <h1>Reactfood</h1>
                 </div>
-                <button type="button" className="button">Cart (3)</button>
+                <button
+                    type="button"
+                    className="text-button"
+                    onClick={handleOpenCart}
+                >
+                    Cart {cart.length > 0 && `(${cart.length})`}
+                </button>
             </header>
 
-            <ul id="meals">
-                {isMealsFetching && <p>Meals are fetching</p>}
-
-                {!isMealsFetching && meals.map(meal => (
-                    <li className="meal-item" key={meal.id}>
-                        <Product props={meal} />
-                    </li>
-                ))}
-            </ul>
+            <section id="meals">
+                {areMealsFetching && <p>Meals are fetching</p>}
+                {mealsFetchingError && <p>{mealsFetchingError.message}</p>}
+                {!areMealsFetching && !mealsFetchingError && (
+                    <ul id="meals-list">
+                        {meals.map(meal => (
+                            <li className="meal-item" key={meal.id}>
+                                <Product props={meal} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </section>
         </>
     );
 }
