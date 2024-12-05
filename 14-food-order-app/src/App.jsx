@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+
+import AppContextProvider from './store/cart-context.jsx';
 import Modal from './components/Modal/Modal.jsx';
+import Header from './components/Header/Header.jsx';
 import Cart from "./components/Cart/Cart.jsx";
 import Checkout from './components/Checkout/Checkout.jsx'
 import Product from './components/Product/Product.jsx';
@@ -8,7 +11,6 @@ function App() {
     const [areMealsFetching, setAreMealsFetching] = useState(false);
     const [meals, setMeals] = useState([]);
     const [mealsFetchingError, setMealsFetchingError] = useState(false);
-    const [cart, setCart] = useState([]);
 
     useEffect(() => {
         async function fetchMeals() {
@@ -37,38 +39,17 @@ function App() {
         // 
     }
 
-    function handleAddMealToCart(meal) {
-        setCart(prevState => {
-            return [
-                ...prevState,
-                meal
-            ]
-        });
-    }
-
     return (
-        <>
+        <AppContextProvider>
             <Modal>
-                <Cart cart={cart} />
+                <Cart />
             </Modal>
 
             {/* <Modal>
                 <Checkout />
             </Modal> */}
 
-            <header id="main-header">
-                <div id="title">
-                    <img />
-                    <h1>Reactfood</h1>
-                </div>
-                <button
-                    type="button"
-                    className="text-button"
-                    onClick={handleOpenCart}
-                >
-                    Cart {cart.length > 0 && `(${cart.length})`}
-                </button>
-            </header>
+            <Header onCartClick={handleOpenCart} />
 
             <section id="meals">
                 {areMealsFetching && <p>Meals are fetching</p>}
@@ -77,13 +58,13 @@ function App() {
                     <ul id="meals-list">
                         {meals.map(meal => (
                             <li className="meal-item" key={meal.id}>
-                                <Product product={meal} onAddMealToCart={handleAddMealToCart} />
+                                <Product product={meal} />
                             </li>
                         ))}
                     </ul>
                 )}
             </section>
-        </>
+        </AppContextProvider>
     );
 }
 
