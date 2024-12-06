@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+/* global */
 body {
     margin: 0;
     font-family: "Raleway", sans-serif;
@@ -14,6 +15,47 @@ body {
     min-height: 100vh;
 }
 
+h1 {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin: 0;
+    color: #ffc404;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #ffc404;
+    border: 1px solid #ffc404;
+    color: #1f1a09;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+
+.button:hover,
+.button:active {
+    background-color: #ffab04;
+    border-color: #ffab04;
+    color: #1f1a09;
+}
+
+.text-button {
+    font: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #ffc404;
+}
+
+.text-button:hover,
+.text-button:active {
+    color: #ffab04;
+}
+
+/* header */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -40,16 +82,7 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-h1 {
-    font-family: "Lato", sans-serif;
-    font-weight: 700;
-    font-size: 2rem;
-    margin: 0;
-    color: #ffc404;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-}
-
+/* measl */
 #meals {
     text-align: center;
 }
@@ -111,6 +144,7 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
+/* cart */
 .cart h2 {
     margin: 1rem 0;
 }
@@ -121,25 +155,10 @@ h1 {
     padding: 0;
 }
 
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-
-.modal-actions .text-button {
-    color: #1d1a16;
-}
-
-.modal-actions .text-button:hover,
-.modal-actions .text-button:active {
-    color: #312c1d;
-}
-
 .cart-total {
     display: flex;
     justify-content: flex-end;
-    margin: 2rem 0;
+    margin-top: 2rem;
     font-size: 1.15rem;
     font-weight: bold;
     color: #46443c;
@@ -182,6 +201,7 @@ h1 {
     color: #ffab04;
 }
 
+/* form */
 .control {
     margin: 0.5rem 0;
     display: flex;
@@ -208,36 +228,7 @@ h1 {
     gap: 1rem;
 }
 
-.button {
-    font: inherit;
-    cursor: pointer;
-    background-color: #ffc404;
-    border: 1px solid #ffc404;
-    color: #1f1a09;
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-}
-
-.button:hover,
-.button:active {
-    background-color: #ffab04;
-    border-color: #ffab04;
-    color: #1f1a09;
-}
-
-.text-button {
-    font: inherit;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    color: #ffc404;
-}
-
-.text-button:hover,
-.text-button:active {
-    color: #ffab04;
-}
-
+/* modal */
 .modal {
     background-color: #e4ddd4;
     border-radius: 6px;
@@ -251,6 +242,22 @@ h1 {
 
 .modal::backdrop {
     background-color: rgba(0, 0, 0, 0.55);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.modal-actions .text-button {
+    color: #1d1a16;
+}
+
+.modal-actions .text-button:hover,
+.modal-actions .text-button:active {
+    color: #312c1d;
 }
 
 @keyframes fade-slide-up {
