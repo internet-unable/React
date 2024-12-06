@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from '../../store/cart-context.jsx';
 
-export default function Cart() {
+export default function Cart({ onCloseCartClick, onCheckoutClick }) {
     const { cart, cartTotalSum, updateCart } = useContext(AppContext);
     const combinedCart = combineDuplicates(cart);
 
@@ -42,6 +42,26 @@ export default function Cart() {
                     <div className="cart-total">${cartTotalSum}</div>
                 </>
             )}
+
+            <div className="modal-actions">
+                <button
+                    type="button"
+                    className="text-button"
+                    onClick={onCloseCartClick}
+                >
+                    Close
+                </button>
+
+                {cart.length > 0 && (
+                    <button
+                        type="button"
+                        className="button"
+                        onClick={onCheckoutClick}
+                    >
+                        Go to Checkout
+                    </button>
+                )}
+            </div>
         </div>
     );
 }
