@@ -54,28 +54,17 @@ function App() {
         cartCheckout.current.close();
     }
 
-    function handleFormSubmit() {
-        console.log('Validate and submit form');
-    }
-
     return (
         <AppContextProvider>
-            <Modal
-                ref={cartDialog}
-                onCloseDialogClick={handleCloseCart}
-                nextStepLable="Go to Checkout"
-                onNextStepClick={handleSwitchToCheckoutDialog}
-            >
-                <Cart />
+            <Modal ref={cartDialog}>
+                <Cart
+                    onCloseCartClick={handleCloseCart}
+                    onCheckoutClick={handleSwitchToCheckoutDialog}
+                />
             </Modal>
 
-            <Modal
-                ref={cartCheckout}
-                onCloseDialogClick={handleCloseCheckout}
-                nextStepLable="Submit order"
-                onNextStepClick={handleFormSubmit}
-            >
-                <Checkout />
+            <Modal ref={cartCheckout}>
+                <Checkout onCloseCheckoutClick={handleCloseCheckout} />
             </Modal>
 
             <Header onCartClick={handleOpenCart} />
