@@ -9,7 +9,7 @@ export default function Header({ onCartClick }) {
         <header id="main-header">
             <div id="title">
                 <img src={logoPath} alt="" />
-                <h1>Reactfood</h1>
+                <h1>Food Order App</h1>
             </div>
 
             <button type="button" className="text-button" onClick={onCartClick}>
