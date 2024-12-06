@@ -1,25 +1,25 @@
 import { useContext } from 'react';
 import { AppContext } from '../../store/cart-context.jsx';
 
-export default function Product({ product }) {
+export default function Meals({ meal }) {
     const { addItemToCart } = useContext(AppContext);
 
     function handleAddMealToCart() {
         addItemToCart({
-            id: product.id,
-            name: product.name,
-            price: product.price
+            id: meal.id,
+            name: meal.name,
+            price: meal.price
         });
     }
 
     return (
         <article>
-            <img src={`http://localhost:3000/${product.image}`} alt={product.description} />
-            <h3>{product.name}</h3>
+            <img src={`http://localhost:3000/${meal.image}`} alt={meal.description} />
+            <h3>{meal.name}</h3>
             <div>
-                <p className="meal-item-price">${product.price}</p>
+                <p className="meal-item-price">${meal.price}</p>
             </div>
-            <p className="meal-item-description">{product.description}</p>
+            <p className="meal-item-description">{meal.description}</p>
             <div>
                 <button type="button" className="button meal-item-actions"
                     onClick={handleAddMealToCart}

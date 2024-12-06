@@ -7,7 +7,7 @@ import Modal from './components/Modal/Modal.jsx';
 import Header from './components/Header/Header.jsx';
 import Cart from "./components/Cart/Cart.jsx";
 import Checkout from './components/Checkout/Checkout.jsx'
-import Product from './components/Product/Product.jsx';
+import Meals from './components/Meals/Meals.jsx';
 
 function App() {
     const {
@@ -58,7 +58,7 @@ function App() {
                     <ul id="meals-list">
                         {meals.map(meal => (
                             <li className="meal-item" key={meal.id}>
-                                <Product product={meal} />
+                                <Meals meal={meal} />
                             </li>
                         ))}
                     </ul>
