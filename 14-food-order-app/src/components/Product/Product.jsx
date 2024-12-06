@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../../store/cart-context.jsx';
 
-export default function Product({ product, onAddMealToCart }) {
+export default function Product({ product }) {
     const { addItemToCart } = useContext(AppContext);
 
     function handleAddMealToCart() {
@@ -21,9 +21,7 @@ export default function Product({ product, onAddMealToCart }) {
             </div>
             <p className="meal-item-description">{product.description}</p>
             <div>
-                <button
-                    type="button"
-                    className="button meal-item-actions"
+                <button type="button" className="button meal-item-actions"
                     onClick={handleAddMealToCart}
                 >
                     Add to cart
