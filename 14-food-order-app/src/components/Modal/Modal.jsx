@@ -1,9 +1,7 @@
-import { forwardRef, useRef, useContext, useImperativeHandle } from 'react';
-import { AppContext } from '../../store/cart-context.jsx';
+import { forwardRef, useRef, useImperativeHandle } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = forwardRef(({ children, onCloseDialogClick, nextStepLable, onNextStepClick }, ref) => {
-    const { cart } = useContext(AppContext);
+const Modal = forwardRef(({ children }, ref) => {
     const dialog = useRef();
 
     useImperativeHandle(ref, () => {
@@ -20,26 +18,6 @@ const Modal = forwardRef(({ children, onCloseDialogClick, nextStepLable, onNextS
     return createPortal(
         <dialog className="modal" ref={dialog}>
             {children}
-            
-            <div className="modal-actions">
-                <button
-                    type="button"
-                    className="text-button"
-                    onClick={onCloseDialogClick}
-                >
-                    Close
-                </button>
-
-                {cart.length > 0 && (
-                    <button
-                        type="button"
-                        className="button"
-                        onClick={onNextStepClick}
-                    >
-                        {nextStepLable}
-                    </button>
-                )}
-            </div>
         </dialog>,
         document.getElementById('modal')
     );
