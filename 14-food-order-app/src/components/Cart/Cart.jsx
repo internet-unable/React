@@ -39,28 +39,14 @@ export default function Cart({ onCloseCartClick, onCheckoutClick }) {
                             </li>
                         ))}
                     </ul>
+
                     <div className="cart-total">${cartTotalSum}</div>
                 </>
             )}
 
             <div className="modal-actions">
-                <button
-                    type="button"
-                    className="text-button"
-                    onClick={onCloseCartClick}
-                >
-                    Close
-                </button>
-
-                {cart.length > 0 && (
-                    <button
-                        type="button"
-                        className="button"
-                        onClick={onCheckoutClick}
-                    >
-                        Go to Checkout
-                    </button>
-                )}
+                <button type="button" className="text-button" onClick={onCloseCartClick}>Close</button>
+                {cart.length > 0 && (<button type="button" className="button" onClick={onCheckoutClick}>Go to Checkout</button>)}
             </div>
         </div>
     );
