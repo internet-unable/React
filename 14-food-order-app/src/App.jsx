@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
+import { useFetch } from './hooks/useFetch.js';
+import { fetchMeals } from './http.js'
 
 import AppContextProvider from './store/cart-context.jsx';
 import Modal from './components/Modal/Modal.jsx';
@@ -8,34 +10,14 @@ import Checkout from './components/Checkout/Checkout.jsx'
 import Product from './components/Product/Product.jsx';
 
 function App() {
-    const [areMealsFetching, setAreMealsFetching] = useState(false);
-    const [meals, setMeals] = useState([]);
-    const [mealsFetchingError, setMealsFetchingError] = useState(false);
+    const {
+        isFetching: areMealsFetching,
+        fetchedData: meals,
+        error: mealsFetchingError
+    } = useFetch(fetchMeals);
     const cartDialog = useRef();
     const cartCheckout = useRef();
 
-    useEffect(() => {
-        async function fetchMeals() {
-            setAreMealsFetching(true);
-            try {
-                const response = await fetch("http://localhost:3000/meals");
-                const meals = await response.json();
-
-                setAreMealsFetching(false);
-                if (response.ok) {
-                    // status code 200/300
-                    setMeals(meals);
-                } else {
-                    // status code 400/500
-                    throw new Error("Failed to fetch meals");
-                }
-            } catch (error) {
-                setMealsFetchingError({ message: error.message || 'Failed to fetch meals' });
-            }
-        };
-
-        fetchMeals();
-    }, []);
 
     function handleOpenCart() {
         cartDialog.current.open();
