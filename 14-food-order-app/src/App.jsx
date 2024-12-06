@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import AppContextProvider from './store/cart-context.jsx';
 import Modal from './components/Modal/Modal.jsx';
@@ -11,6 +11,8 @@ function App() {
     const [areMealsFetching, setAreMealsFetching] = useState(false);
     const [meals, setMeals] = useState([]);
     const [mealsFetchingError, setMealsFetchingError] = useState(false);
+    const cartDialog = useRef();
+    const cartCheckout = useRef();
 
     useEffect(() => {
         async function fetchMeals() {
@@ -36,18 +38,45 @@ function App() {
     }, []);
 
     function handleOpenCart() {
-        // 
+        cartDialog.current.open();
+    }
+
+    function handleCloseCart() {
+        cartDialog.current.close();
+    }
+
+    function handleSwitchToCheckoutDialog() {
+        cartDialog.current.close();
+        cartCheckout.current.open();
+    }
+
+    function handleCloseCheckout() {
+        cartCheckout.current.close();
+    }
+
+    function handleFormSubmit() {
+        console.log('Validate and submit form');
     }
 
     return (
         <AppContextProvider>
-            <Modal>
+            <Modal
+                ref={cartDialog}
+                onCloseDialogClick={handleCloseCart}
+                nextStepLable="Go to Checkout"
+                onNextStepClick={handleSwitchToCheckoutDialog}
+            >
                 <Cart />
             </Modal>
 
-            {/* <Modal>
+            <Modal
+                ref={cartCheckout}
+                onCloseDialogClick={handleCloseCheckout}
+                nextStepLable="Submit order"
+                onNextStepClick={handleFormSubmit}
+            >
                 <Checkout />
-            </Modal> */}
+            </Modal>
 
             <Header onCartClick={handleOpenCart} />
 
