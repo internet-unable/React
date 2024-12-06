@@ -16,8 +16,10 @@ function countTotalSum(array) {
 
 export const AppContext = createContext({
     cart: [],
+    cartTotalSum: 0,
     addItemToCart: () => { }, // for vs code autocomplete
-    updateCart: () => { } // for vs code autocomplete
+    updateCart: () => { }, // for vs code autocomplete
+    clearCart: () => { } // for vs code autocomplete
 });
 
 function cartReducer(state, action) {
@@ -43,6 +45,13 @@ function cartReducer(state, action) {
         return {
             cart: updatedCart,
             totalSum
+        };
+    }
+
+    if (action.type === 'CLEAR_CART') {
+        return {
+            cart: [],
+            totalSum: 0
         };
     }
 
@@ -76,11 +85,19 @@ export default function AppContextProvider({ children }) {
         }
     }
 
+    function handleClearCart() {
+        cartDispatch({
+            type: 'CLEAR_CART',
+            payload: {}
+        });
+    }
+
     const ctxValue = {
         cart: cartState.cart,
         cartTotalSum: cartState.totalSum,
         addItemToCart: handleAddItemToCart,
-        updateCart: handleUpdateCart
+        updateCart: handleUpdateCart,
+        clearCart: handleClearCart
     };
 
     return (
