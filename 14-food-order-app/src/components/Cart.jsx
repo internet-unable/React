@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from '../store/cart-context.jsx';
 import { currencyFormatter } from '../utils/formatting.js';
 import Button from './UI/Button.jsx';
+import CartItem from './CartItem.jsx';
 
 export default function Cart({ onCloseCartClick, onCheckoutClick }) {
     const { cart, cartTotalSum, updateCart } = useContext(AppContext);
@@ -28,27 +29,25 @@ export default function Cart({ onCloseCartClick, onCheckoutClick }) {
             {combinedCart.length > 0 && (
                 <>
                     <h2>Your cart</h2>
-
                     <ul>
                         {combinedCart.map(meal => (
-                            <li className="cart-item" key={meal.id}>
-                                <p>{meal.name} - {meal.count} x {currencyFormatter.format(meal.price)}</p>
-                                <div className="cart-item-actions">
-                                    <Button onClick={() => updateCart(false, meal.id)}>-</Button>
-                                    {meal.count}
-                                    <Button onClick={() => updateCart(true, meal.id)}>+</Button>
-                                </div>
-                            </li>
+                            <CartItem
+                                item={meal}
+                                onIncrease={() => updateCart(false, meal.id)}
+                                onDecrease={() => updateCart(true, meal.id)}
+                            />
                         ))}
                     </ul>
 
-                    <div className="cart-total">${cartTotalSum}</div>
+                    <div className="cart-total">{currencyFormatter.format(cartTotalSum)}</div>
                 </>
             )}
 
             <div className="modal-actions">
-                <button type="button" className="text-button" onClick={onCloseCartClick}>Close</button>
-                {cart.length > 0 && (<button type="button" className="button" onClick={onCheckoutClick}>Go to Checkout</button>)}
+                <Button textOnly onClick={onCloseCartClick}>Close</Button>
+                {cart.length > 0 && (
+                    <Button onClick={onCheckoutClick}>Go to Checkout</Button>
+                )}
             </div>
         </div>
     );
