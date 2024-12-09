@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { AppContext } from '../../store/cart-context.jsx';
-import logoPath from '../../assets/logo.jpg';
-import Button from '../UI/Button.jsx';
+import { AppContext } from '../store/cart-context.jsx';
+import logoPath from '../assets/logo.jpg';
+import Button from './UI/Button.jsx';
 
 export default function Header({ onCartClick }) {
     const { cart } = useContext(AppContext);

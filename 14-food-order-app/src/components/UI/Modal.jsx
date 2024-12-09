@@ -19,7 +19,7 @@ const Modal = forwardRef(({ children }, ref) => {
         <dialog className="modal" ref={dialog}>
             {children}
         </dialog>,
-        document.getElementById('modal')
+        document.getElementById("modal")
     );
 });
 

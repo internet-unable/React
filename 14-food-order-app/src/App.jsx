@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 
 import { AppContextProvider } from './store/cart-context.jsx';
-import Modal from './components/Modal/Modal.jsx';
-import Header from './components/Header/Header.jsx';
-import Cart from "./components/Cart/Cart.jsx";
-import Checkout from './components/Checkout/Checkout.jsx'
-import Meals from './components/Meals/Meals.jsx';
+import Modal from './components/UI/Modal.jsx';
+import Header from './components/Header.jsx';
+import Cart from './components/Cart.jsx';
+import Checkout from './components/Checkout.jsx'
+import Meals from './components/Meals.jsx';
 
 function App() {
     const cartDialog = useRef();

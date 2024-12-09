@@ -1,6 +1,6 @@
-import { useFetch } from '../../hooks/useFetch.js';
-import { fetchMeals } from '../../http.js'
-import Meal from '../Meal/Meal.jsx';
+import { useFetch } from '../hooks/useFetch.js';
+import { fetchMeals } from '../http.js';
+import Meal from './Meal.jsx';
 
 export default function Meals() {
     const {

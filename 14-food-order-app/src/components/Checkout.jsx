@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import { AppContext } from '../../store/cart-context.jsx';
-import { submitOrder } from '../../http.js';
-import { currencyFormatter } from "../../utils/formatting.js";
-import Button from "../UI/Button.jsx";
+import { useContext, useState } from 'react';
+import { AppContext } from '../store/cart-context.jsx';
+import { submitOrder } from '../http.js';
+import { currencyFormatter } from '../utils/formatting.js';
+import Button from './UI/Button.jsx';
 
 export default function Checkout({ onCloseCheckoutClick }) {
     const { cart, cartTotalSum, clearCart } = useContext(AppContext);
