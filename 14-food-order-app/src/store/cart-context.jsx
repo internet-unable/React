@@ -24,22 +24,64 @@ export const AppContext = createContext({
 
 function cartReducer(state, action) {
     if (action.type === 'ADD_ITEM') {
-        const updatedCart = [
-            ...state.cart,
-            { ...action.payload.item }
-        ];
+        // const updatedCart = [...state.cart];
+        // const indexOfItemInCart = updatedCart.findIndex(meal => meal.id === action.item.id);
+
+        // if (indexOfItemInCart > -1) {
+        //     const itemFromCart = updatedCart[indexOfItemInCart];
+        //     const updatedItem = {
+        //         ...itemFromCart,
+        //         quantity: itemFromCart.quantity + 1
+        //     }
+
+        //     updatedCart[indexOfItemInCart] = updatedItem;
+        // } else {
+        //     updatedCart.push({
+        //         ...action.item,
+        //         quantity: 1
+        //     });
+        // }
+
+        // return {
+        //     ...state,
+        //     cart: updatedCart
+        // };
+
+        const updatedCart = [...state.cart];
+        updatedCart.push(action.item);
         const totalSum = countTotalSum(updatedCart);
 
         return {
+            ...state,
             cart: updatedCart,
             totalSum
         };
     }
 
     if (action.type === 'REMOVE_ITEM') {
+        // const updatedCart = [...state.cart];
+        // const indexOfItemInCart = updatedCart.findIndex(meal => meal.id === action.id);
+        // const itemFromCart = updatedCart[indexOfItemInCart];
+        
+        // if (itemFromCart.quantity > 1) {
+        //     const updatedItem = {
+        //         ...itemFromCart,
+        //         quantity: itemFromCart.quantity - 1
+        //     };
+        //     updatedCart[indexOfItemInCart] = updatedItem;
+            
+        // } else {
+        //     updatedCart.splice(indexOfItemInCart, 1);
+        // }
+
+        // return {
+        //     ...state,
+        //     cart: updatedCart
+        // };
+        
         const updatedCart = [...state.cart];
-        const indexOfMealById = updatedCart.indexOf(updatedCart.find(meal => meal.id === action.payload.id));
-        updatedCart.splice(indexOfMealById, 1);
+        const indexOfItemInCart = updatedCart.findIndex(meal => meal.id === action.id);
+        updatedCart.splice(indexOfItemInCart, 1);
         const totalSum = countTotalSum(updatedCart);
 
         return {
@@ -50,6 +92,7 @@ function cartReducer(state, action) {
 
     if (action.type === 'CLEAR_CART') {
         return {
+            ...state,
             cart: [],
             totalSum: 0
         };
@@ -58,41 +101,41 @@ function cartReducer(state, action) {
     return state;
 }
 
-export default function AppContextProvider({ children }) {
-    const [cartState, cartDispatch] = useReducer(cartReducer, {
+export function AppContextProvider({ children }) {
+    const [cartState, dispatchCartAction] = useReducer(cartReducer, {
         cart: [],
         totalSum: 0
     });
 
     function handleAddItemToCart(item) {
-        cartDispatch({
+        dispatchCartAction({
             type: 'ADD_ITEM',
-            payload: { item }
+            item
         });
     }
 
     function handleUpdateCart(isIncrement, id) {
         if (isIncrement) {
-            cartDispatch({
+            dispatchCartAction({
                 type: 'ADD_ITEM',
-                payload: { item: { ...cartState.cart.find(item => item.id === id) } }
+                item: { ...cartState.cart.find(item => item.id === id) }
             });
         } else {
-            cartDispatch({
+            dispatchCartAction({
                 type: 'REMOVE_ITEM',
-                payload: { id }
+                id
             });
         }
     }
 
     function handleClearCart() {
-        cartDispatch({
+        dispatchCartAction({
             type: 'CLEAR_CART',
             payload: {}
         });
     }
 
-    const ctxValue = {
+    const cartContext = {
         cart: cartState.cart,
         cartTotalSum: cartState.totalSum,
         addItemToCart: handleAddItemToCart,
@@ -101,7 +144,7 @@ export default function AppContextProvider({ children }) {
     };
 
     return (
-        <AppContext.Provider value={ctxValue}>
+        <AppContext.Provider value={cartContext}>
             {children}
         </AppContext.Provider>
     );
