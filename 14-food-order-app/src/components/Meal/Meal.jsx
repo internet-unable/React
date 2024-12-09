@@ -1,0 +1,24 @@
+import { useContext } from 'react';
+import { AppContext } from '../../store/cart-context.jsx';
+import { currencyFormatter } from '../../utils/formatting.js';
+import Button from '../UI/Button.jsx';
+
+export default function Meal({meal}) {
+    const { addItemToCart } = useContext(AppContext);
+    
+    return (
+        <article>
+            <img src={`http://localhost:3000/${meal.image}`} alt={meal.description} />
+            <div>
+                <h3>{meal.name}</h3>
+                <p className="meal-item-price">{currencyFormatter.format(meal.price)}</p>
+                <p className="meal-item-description">{meal.description}</p>
+            </div>
+            <div className="meal-item-actions">
+                <Button onClick={() => addItemToCart({ id: meal.id, name: meal.name, price: meal.price })}>
+                    Add to cart
+                </Button>
+            </div>
+        </article>
+    );
+}
