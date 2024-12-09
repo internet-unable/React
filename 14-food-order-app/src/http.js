@@ -1,8 +1,6 @@
 export async function fetchMeals() {
-    console.log("Fetching meals..."); // Начало запроса
     const response = await fetch("http://localhost:3000/meals");
     const resData = await response.json();
-    console.log("Response received:", resData); // Когда данные пришли
 
     if (response.ok) {
         return resData;
