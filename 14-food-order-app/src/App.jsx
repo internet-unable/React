@@ -1,6 +1,4 @@
 import { useRef } from 'react';
-import { useFetch } from './hooks/useFetch.js';
-import { fetchMeals } from './http.js'
 
 import AppContextProvider from './store/cart-context.jsx';
 import Modal from './components/Modal/Modal.jsx';
@@ -10,11 +8,6 @@ import Checkout from './components/Checkout/Checkout.jsx'
 import Meals from './components/Meals/Meals.jsx';
 
 function App() {
-    const {
-        isFetching: areMealsFetching,
-        fetchedData: meals,
-        error: mealsFetchingError
-    } = useFetch(fetchMeals);
     const cartDialog = useRef();
     const cartCheckout = useRef();
 
@@ -50,8 +43,9 @@ function App() {
             </Modal>
 
             <Header onCartClick={handleOpenCart} />
+            <Meals />
 
-            <section id="meals">
+            {/* <section id="meals">
                 {areMealsFetching && <p>Meals are fetching</p>}
                 {mealsFetchingError && <p>{mealsFetchingError.message}</p>}
                 {!areMealsFetching && !mealsFetchingError && (
@@ -63,7 +57,7 @@ function App() {
                         ))}
                     </ul>
                 )}
-            </section>
+            </section> */}
         </AppContextProvider>
     );
 }
