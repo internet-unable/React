@@ -1,8 +1,14 @@
-import { forwardRef, useRef, useImperativeHandle } from 'react';
+import { forwardRef, useRef, useImperativeHandle, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = forwardRef(({ children }, ref) => {
+const Modal = forwardRef(({ children, className = '', /*open*/ }, ref) => {
     const dialog = useRef();
+
+    // useEffect(() => {
+    //     if (open) {
+    //         dialog.current.showModal();
+    //     }
+    // }, []);
 
     useImperativeHandle(ref, () => {
         return {
@@ -16,10 +22,10 @@ const Modal = forwardRef(({ children }, ref) => {
     });
 
     return createPortal(
-        <dialog className="modal" ref={dialog}>
+        <dialog className={`modal ${className}`} ref={dialog}>
             {children}
         </dialog>,
-        document.getElementById("modal")
+        document.getElementById('modal')
     );
 });
 
