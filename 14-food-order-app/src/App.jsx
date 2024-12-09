@@ -43,21 +43,8 @@ function App() {
             </Modal>
 
             <Header onCartClick={handleOpenCart} />
-            <Meals />
 
-            {/* <section id="meals">
-                {areMealsFetching && <p>Meals are fetching</p>}
-                {mealsFetchingError && <p>{mealsFetchingError.message}</p>}
-                {!areMealsFetching && !mealsFetchingError && (
-                    <ul id="meals-list">
-                        {meals.map(meal => (
-                            <li className="meal-item" key={meal.id}>
-                                <Meals meal={meal} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </section> */}
+            <Meals />
         </AppContextProvider>
     );
 }
