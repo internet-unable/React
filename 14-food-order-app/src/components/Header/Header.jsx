@@ -5,6 +5,9 @@ import Button from '../UI/Button.jsx';
 
 export default function Header({ onCartClick }) {
     const { cart } = useContext(AppContext);
+    // const totalItemsInCart = cart.reduce((total, item) => {
+    //     return total += item.count;
+    // }, 0);
 
     return (
         <header id="main-header">
