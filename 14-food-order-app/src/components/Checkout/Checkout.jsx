@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from '../../store/cart-context.jsx';
 import { submitOrder } from '../../http.js';
+import { currencyFormatter } from "../../utils/formatting.js";
 
 export default function Checkout({ onCloseCheckoutClick }) {
     const { cart, cartTotalSum, clearCart } = useContext(AppContext);
@@ -43,7 +44,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
             {!isOrderSubmitted && !isOrderSubmitError && (
                 <div>
                     <h2>Checkout</h2>
-                    <p>Total amount: ${cartTotalSum}</p>
+                    <p>Total amount: {currencyFormatter.format(meal.price)}</p>
                     <form onSubmit={handleFormSubmit}>
                         <div className="control">
                             <label htmlFor="fullName">Full name</label>
