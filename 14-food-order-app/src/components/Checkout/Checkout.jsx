@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AppContext } from '../../store/cart-context.jsx';
 import { submitOrder } from '../../http.js';
 import { currencyFormatter } from "../../utils/formatting.js";
+import Button from "../UI/Button.jsx";
 
 export default function Checkout({ onCloseCheckoutClick }) {
     const { cart, cartTotalSum, clearCart } = useContext(AppContext);
@@ -44,7 +45,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
             {!isOrderSubmitted && !isOrderSubmitError && (
                 <div>
                     <h2>Checkout</h2>
-                    <p>Total amount: {currencyFormatter.format(meal.price)}</p>
+                    <p>Total amount: {currencyFormatter.format(cartTotalSum)}</p>
                     <form onSubmit={handleFormSubmit}>
                         <div className="control">
                             <label htmlFor="fullName">Full name</label>
@@ -73,8 +74,8 @@ export default function Checkout({ onCloseCheckoutClick }) {
                         </div>
 
                         <div className="modal-actions">
-                            <button type="reset" className="text-button" onClick={handleCheckoutClose}>Close</button>
-                            <button type="submit" className="button">Submit order</button>
+                            <Button type="reset" textOnly onClick={handleCheckoutClose}>Close</Button>
+                            <Button type="submit">Submit order</Button>
                         </div>
                     </form>
                 </div>
@@ -86,7 +87,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
                     <p>Your order was submitted successfully.</p>
                     <p>We will get back to you with more details via email within the next few minutes.</p>
                     <div className="modal-actions">
-                        <button type="button" className="button" onClick={handleCheckoutClose}>Okay</button>
+                        <Button onClick={handleCheckoutClose}>Okay</Button>
                     </div>
                 </div>
             )}
@@ -95,7 +96,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
                 <div>
                     <h2>{isOrderSubmitError}</h2>
                     <div className="modal-actions">
-                        <button type="button" className="button" onClick={handleTryAgain}>Try again</button>
+                        <Button onClick={handleTryAgain}>Try again</Button>
                     </div>
                 </div>
             )}
