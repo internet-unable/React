@@ -1,17 +1,17 @@
 import { createContext, useReducer } from 'react';
 
 function countTotalSum(array) {
-    const calc = array.reduce((acc, item) => {
+    const totalSum = array.reduce((total, item) => {
         if (item.count) {
-            acc += Number(item.price) * item.count;
+            total += Number(item.price) * item.count;
         } else {
-            acc += Number(item.price);
+            total += Number(item.price);
         }
 
-        return acc;
+        return total;
     }, 0);
 
-    return calc.toFixed(2);
+    return totalSum.toFixed(2);
 }
 
 export const AppContext = createContext({
