@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import AppContextProvider from './store/cart-context.jsx';
+import { AppContextProvider } from './store/cart-context.jsx';
 import Modal from './components/Modal/Modal.jsx';
 import Header from './components/Header/Header.jsx';
 import Cart from "./components/Cart/Cart.jsx";
