@@ -32,6 +32,7 @@ export default function Cart({ onCloseCartClick, onCheckoutClick }) {
                     <ul>
                         {combinedCart.map(meal => (
                             <CartItem
+                                key={meal.id}
                                 item={meal}
                                 onIncrease={() => updateCart(false, meal.id)}
                                 onDecrease={() => updateCart(true, meal.id)}
