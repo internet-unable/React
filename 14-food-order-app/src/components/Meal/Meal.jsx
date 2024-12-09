@@ -5,7 +5,11 @@ import Button from '../UI/Button.jsx';
 
 export default function Meal({meal}) {
     const { addItemToCart } = useContext(AppContext);
-    
+
+    function handleAddMealToCart() {
+        addItemToCart(meal);
+    }
+
     return (
         <article>
             <img src={`http://localhost:3000/${meal.image}`} alt={meal.description} />
@@ -15,7 +19,7 @@ export default function Meal({meal}) {
                 <p className="meal-item-description">{meal.description}</p>
             </div>
             <div className="meal-item-actions">
-                <Button onClick={() => addItemToCart({ id: meal.id, name: meal.name, price: meal.price })}>
+                <Button onClick={handleAddMealToCart}>
                     Add to cart
                 </Button>
             </div>
