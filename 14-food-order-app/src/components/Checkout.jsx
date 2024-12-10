@@ -1,29 +1,44 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../store/cart-context.jsx';
-import { submitOrder } from '../http.js';
+import { useHttp } from '../hooks/useHttp.js';
 import { currencyFormatter } from '../utils/formatting.js';
 import Button from './UI/Button.jsx';
 import Input from './UI/Input.jsx';
 
+const requestConfig = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+};
+
 export default function Checkout({ onCloseCheckoutClick }) {
     const { cart, cartTotalSum, clearCart } = useContext(AppContext);
-    const [isOrderFetching, setIsOrderFetching] = useState(false);
-    const [isOrderSubmitted, setIsOrderSubmitted] = useState(false);
-    const [isOrderSubmitError, setIsOrderSubmitError] = useState(false);
+    const {
+        isPending: isSendingOrder,
+        data,
+        setData,
+        error: isOrderSubmitError,
+        setError: setIsOrderSubmitError,
+        sendRequest
+    } = useHttp('orders', requestConfig);
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
+        const formFieldsValues = Object.fromEntries(formData.entries());
 
-        sendData({
-            items: cart,
-            customer: data
-        });
+        await sendRequest(JSON.stringify({
+            order: {
+                items: cart,
+                customer: formFieldsValues,
+            }
+        }));
     }
 
     function handleCheckoutClose() {
-        setIsOrderSubmitted(false);
+        setData(false);
+        clearCart();
         onCloseCheckoutClick();
     }
 
@@ -31,19 +46,9 @@ export default function Checkout({ onCloseCheckoutClick }) {
         setIsOrderSubmitError(false);
     }
 
-    async function sendData(data) {
-        try {
-            const responseMessage = await submitOrder(data);
-            setIsOrderSubmitted(true);
-            clearCart();
-        } catch (error) {
-            setIsOrderSubmitError(error.message);
-        }
-    }
-
     return (
         <>
-            {!isOrderSubmitted && !isOrderSubmitError && (
+            {!data && !isOrderSubmitError && (
                 <div>
                     <h2>Checkout</h2>
                     <p>Total amount: {currencyFormatter.format(cartTotalSum)}</p>
@@ -51,9 +56,9 @@ export default function Checkout({ onCloseCheckoutClick }) {
                         <div className="control">
                             <Input
                                 label="Full name"
-                                id="full-name"
+                                id="name"
                                 type="text"
-                                name="full-name"
+                                name="name"
                                 required
                                 minLength={2}
                             />
@@ -61,7 +66,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
 
                         <div className="control">
                             <Input
-                                label="E-mai"
+                                label="E-mail"
                                 id="email"
                                 type="email"
                                 name="email"
@@ -104,14 +109,19 @@ export default function Checkout({ onCloseCheckoutClick }) {
                         </div>
 
                         <div className="modal-actions">
-                            <Button type="button" textOnly onClick={handleCheckoutClose}>Close</Button>
-                            <Button type="submit">Submit order</Button>
+                            {isSendingOrder && <span>Sending order data...</span>}
+                            {!isSendingOrder && (
+                                <>
+                                    <Button type="button" textOnly onClick={handleCheckoutClose}>Close</Button>
+                                    <Button type="submit">Submit order</Button>
+                                </>
+                            )}
                         </div>
                     </form>
                 </div>
             )}
 
-            {isOrderSubmitted && !isOrderSubmitError && (
+            {data && !isOrderSubmitError && (
                 <div>
                     <h2>Success!</h2>
                     <p>Your order was submitted successfully.</p>
