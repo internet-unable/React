@@ -1,21 +1,26 @@
-import { useFetch } from '../hooks/useFetch.js';
-import { fetchMeals } from '../http.js';
+import { useEffect } from 'react';
+import { useHttp } from '../hooks/useHttp.js';
 import Meal from './Meal.jsx';
 
 export default function Meals() {
     const {
-        isFetching: areMealsFetching,
-        fetchedData: meals,
-        error: mealsFetchingError
-    } = useFetch(fetchMeals);
+        isPending: areMealsFetching,
+        data: meals,
+        error: mealsFetchingError,
+        sendRequest: fetchMeals
+    } = useHttp('meals');
+
+    useEffect(() => {
+        fetchMeals();
+    }, []);
 
     return (
         <section id="meals">
             {areMealsFetching && <p>Meals are fetching</p>}
-            {mealsFetchingError && <p>{mealsFetchingError.message}</p>}
+            {mealsFetchingError && <p>{mealsFetchingError}</p>}
             {!areMealsFetching && !mealsFetchingError && (
                 <ul id="meals-list">
-                    {meals.map(meal => (
+                    {meals && meals.map(meal => (
                         <li className="meal-item" key={meal.id}>
                             <Meal meal={meal} />
                         </li>
