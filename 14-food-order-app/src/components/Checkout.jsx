@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../store/cart-context.jsx';
 import { useHttp } from '../hooks/useHttp.js';
-import { currencyFormatter } from '../utils/formatting.js';
+import { countTotalSum } from '../utils/formatting.js';
 import Button from './UI/Button.jsx';
 import Input from './UI/Input.jsx';
 
@@ -13,7 +13,8 @@ const requestConfig = {
 };
 
 export default function Checkout({ onCloseCheckoutClick }) {
-    const { cart, cartTotalSum, clearCart } = useContext(AppContext);
+    const { cart, clearCart } = useContext(AppContext);
+    const cartTotalSum = countTotalSum(cart);
     const {
         isPending: isSendingOrder,
         data,
@@ -37,11 +38,14 @@ export default function Checkout({ onCloseCheckoutClick }) {
     }
 
     function handleCheckoutClose() {
-        setData(false);
-        clearCart();
+        if (data) {
+            setData(false);
+            clearCart();
+        }
+        
         onCloseCheckoutClick();
     }
-
+    
     function handleTryAgain() {
         setIsOrderSubmitError(false);
     }
@@ -51,7 +55,7 @@ export default function Checkout({ onCloseCheckoutClick }) {
             {!data && !isOrderSubmitError && (
                 <div>
                     <h2>Checkout</h2>
-                    <p>Total amount: {currencyFormatter.format(cartTotalSum)}</p>
+                    <p>Total amount: {cartTotalSum}</p>
                     <form onSubmit={handleFormSubmit}>
                         <div className="control">
                             <Input

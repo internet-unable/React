@@ -5,9 +5,9 @@ import Button from './UI/Button.jsx';
 
 export default function Header({ onCartClick }) {
     const { cart } = useContext(AppContext);
-    // const totalItemsInCart = cart.reduce((total, item) => {
-    //     return total += item.count;
-    // }, 0);
+    const totalItemsInCart = cart.reduce((total, item) => {
+        return total += item.quantity;
+    }, 0);
 
     return (
         <header id="main-header">
@@ -17,7 +17,7 @@ export default function Header({ onCartClick }) {
             </div>
 
             <Button textOnly onClick={onCartClick}>
-                Cart {cart.length > 0 && `(${cart.length})`}
+                Cart {cart.length > 0 && `(${totalItemsInCart})`}
             </Button>
         </header>
     );
