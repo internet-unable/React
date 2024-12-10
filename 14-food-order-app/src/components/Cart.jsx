@@ -7,7 +7,6 @@ import CartItem from './CartItem.jsx';
 export default function Cart({ onCloseCartClick, onCheckoutClick }) {
     const { cart, updateCart } = useContext(CartContext);
     const cartTotalSum = countTotalSum(cart);
-    console.log(cartTotalSum);
 
     return (
         <div className="cart">

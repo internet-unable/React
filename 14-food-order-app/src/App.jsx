@@ -11,7 +11,6 @@ function App() {
     const cartDialog = useRef();
     const cartCheckout = useRef();
 
-
     function handleOpenCart() {
         cartDialog.current.open();
     }
