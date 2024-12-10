@@ -1,6 +1,6 @@
 import { createContext, useReducer } from 'react';
 
-export const AppContext = createContext({
+export const CartContext = createContext({
     cart: [],
     addItemToCart: () => { }, // for vs code autocomplete
     updateCart: () => { }, // for vs code autocomplete
@@ -53,6 +53,7 @@ function cartReducer(state, action) {
             ...state,
             cart: updatedCart
         };
+
     }
 
     if (action.type === 'CLEAR_CART') {
@@ -65,7 +66,7 @@ function cartReducer(state, action) {
     return state;
 }
 
-export function AppContextProvider({ children }) {
+export function CartContextProvider({ children }) {
     const [cartState, dispatchCartAction] = useReducer(cartReducer, {
         cart: []
     });
@@ -107,8 +108,8 @@ export function AppContextProvider({ children }) {
     };
 
     return (
-        <AppContext.Provider value={cartContext}>
+        <CartContext.Provider value={cartContext}>
             {children}
-        </AppContext.Provider>
+        </CartContext.Provider>
     );
 }

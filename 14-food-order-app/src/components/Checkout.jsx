@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AppContext } from '../store/cart-context.jsx';
+import { CartContext } from '../store/cart-context.jsx';
 import { useHttp } from '../hooks/useHttp.js';
 import { countTotalSum } from '../utils/formatting.js';
 import Button from './UI/Button.jsx';
@@ -13,7 +13,7 @@ const requestConfig = {
 };
 
 export default function Checkout({ onCloseCheckoutClick }) {
-    const { cart, clearCart } = useContext(AppContext);
+    const { cart, clearCart } = useContext(CartContext);
     const cartTotalSum = countTotalSum(cart);
     const {
         isPending: isSendingOrder,

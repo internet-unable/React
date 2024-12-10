@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { AppContextProvider } from './store/cart-context.jsx';
+import { CartContextProvider } from './store/cart-context.jsx';
 import Modal from './components/UI/Modal.jsx';
 import Header from './components/Header.jsx';
 import Cart from './components/Cart.jsx';
@@ -30,7 +30,7 @@ function App() {
     }
 
     return (
-        <AppContextProvider>
+        <CartContextProvider>
             <Modal ref={cartDialog}>
                 <Cart
                     onCloseCartClick={handleCloseCart}
@@ -45,7 +45,7 @@ function App() {
             <Header onCartClick={handleOpenCart} />
 
             <Meals />
-        </AppContextProvider>
+        </CartContextProvider>
     );
 }
 

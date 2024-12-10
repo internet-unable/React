@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { AppContext } from '../store/cart-context.jsx';
+import { CartContext } from '../store/cart-context.jsx';
 import { countTotalSum } from '../utils/formatting.js';
 import Button from './UI/Button.jsx';
 import CartItem from './CartItem.jsx';
 
 export default function Cart({ onCloseCartClick, onCheckoutClick }) {
-    const { cart, updateCart } = useContext(AppContext);
+    const { cart, updateCart } = useContext(CartContext);
     const cartTotalSum = countTotalSum(cart);
     console.log(cartTotalSum);
 

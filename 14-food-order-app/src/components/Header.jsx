@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { AppContext } from '../store/cart-context.jsx';
+import { CartContext } from '../store/cart-context.jsx';
 import logoPath from '../assets/logo.jpg';
 import Button from './UI/Button.jsx';
 
 export default function Header({ onCartClick }) {
-    const { cart } = useContext(AppContext);
+    const { cart } = useContext(CartContext);
     const totalItemsInCart = cart.reduce((total, item) => {
         return total += item.quantity;
     }, 0);
