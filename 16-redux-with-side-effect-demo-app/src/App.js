@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendCartData } from "./store/cart-slice";
+import { fetchCartData, sendCartData } from "./store/cart/cart-custom-actions";
 
 import Notification from './components/UI/Notification';
 import Layout from "./components/Layout/Layout";
@@ -14,6 +14,10 @@ function App() {
     const cart = useSelector((state) => state.cart);
     const notification = useSelector((state) => state.ui.notification);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCartData());
+    }, [dispatch]);
 
     useEffect(() => {
         // Option 1
@@ -64,7 +68,10 @@ function App() {
         // Option 2
         if (isInitial) {
             isInitial = false;
-        } else {
+            return;
+        }
+
+        if (cart.changed) {
             dispatch(sendCartData(cart));
         }
     }, [dispatch, cart]);
