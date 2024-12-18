@@ -1,6 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
-
-import EventsNavigation from "../components/EventsNavigation";
+import { NavLink } from "react-router-dom";
 
 const DUMMY_EVENTS = [
     { id: 1, title: "Event 1" },
@@ -11,7 +9,6 @@ const DUMMY_EVENTS = [
 export default function EventsPage() {
     return (
         <>
-            <EventsNavigation />
             <main>
                 <h1>Events page</h1>
                 <ul>
@@ -21,7 +18,6 @@ export default function EventsPage() {
                         </li>
                     ))}
                 </ul>
-                {/* <Outlet /> */}
             </main>
         </>
     );
