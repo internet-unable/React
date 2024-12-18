@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+
+import EventsNavigation from "../components/EventsNavigation";
 
 const DUMMY_EVENTS = [
     { id: 1, title: "Event 1" },
@@ -9,14 +11,18 @@ const DUMMY_EVENTS = [
 export default function EventsPage() {
     return (
         <>
-            <h1>Events page</h1>
-            <ul>
-                {DUMMY_EVENTS.map(event => (
-                    <li key={event.id}>
-                        <NavLink to={`/events/${event.id}`}>{event.title}</NavLink>
-                    </li>
-                ))}
-            </ul>
+            <EventsNavigation />
+            <main>
+                <h1>Events page</h1>
+                <ul>
+                    {DUMMY_EVENTS.map(event => (
+                        <li key={event.id}>
+                            <NavLink to={`/events/${event.id}`}>{event.title}</NavLink>
+                        </li>
+                    ))}
+                </ul>
+                {/* <Outlet /> */}
+            </main>
         </>
     );
 }
