@@ -1,24 +1,29 @@
-import { NavLink } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
-const DUMMY_EVENTS = [
-    { id: 1, title: "Event 1" },
-    { id: 2, title: "Event 2" },
-    { id: 3, title: "Event 3" },
-];
+import EventsList from "../components/EventsList";
 
 export default function EventsPage() {
+    const data = useLoaderData();
+
     return (
         <>
-            <main>
-                <h1>Events page</h1>
-                <ul>
-                    {DUMMY_EVENTS.map(event => (
-                        <li key={event.id}>
-                            <NavLink to={`/events/${event.id}`}>{event.title}</NavLink>
-                        </li>
-                    ))}
-                </ul>
-            </main>
+            {data.isError && (
+                <p>{data.message}</p>
+            )}
+            
+            {!data.isError && (
+                <EventsList events={data.events} />
+            )}
         </>
     );
+}
+
+export async function eventsLoader() {
+    const response = await fetch("http://localhost:8080/events");
+
+    if (!response.ok) {
+        return { isError: true, message: 'Could not fetch events' }
+    } else {
+        return response;
+    }
 }
