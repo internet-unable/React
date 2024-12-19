@@ -17,14 +17,14 @@ export default function EventsPage() {
 export async function eventsLoader() {
     const response = await fetch("http://localhost:8080/events");
 
-    if (!response.ok) {
+    if (response.ok) {
+        return response;
+    } else {
         // Option 1
         // return { isError: true, message: "Could not fetch events" };
 
         // Option 2
         // react-router-dom will render closest errorElement of createBrowserRouter(). It can bubble up
         throw new Response(JSON.stringify({ message: "Could not fetch events"}), { status: 500 });
-    } else {
-        return response;
     }
 }
