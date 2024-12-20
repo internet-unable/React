@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import { tokenLoader } from "./utils/auth";
 import EditEventPage from "./pages/EditEvent";
 import ErrorPage from "./pages/Error";
 import EventDetailPage, {
@@ -18,7 +19,9 @@ import { logoutAction } from "./pages/Logout";
 
 const router = createBrowserRouter([
     {
+        id: "root",
         path: "/",
+        loader: tokenLoader,
         element: <RootLayout />,
         errorElement: <ErrorPage />,
         children: [
