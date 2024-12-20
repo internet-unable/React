@@ -11,13 +11,13 @@ export default function EventDetailPage() {
         <>
             <Suspense fallback={<p>Loading event details...</p>}>
                 <Await resolve={event}>
-                    {(fetchedEvent) => <EventItem event={fetchedEvent} />}
+                    {({event}) => <EventItem event={event} />}
                 </Await>
             </Suspense>
 
             <Suspense fallback={<p>Loading events...</p>}>
                 <Await resolve={events}>
-                    {(fetchedEvents) => <EventsList events={fetchedEvents} />}
+                    {({events}) => <EventsList events={events} />}
                 </Await>
             </Suspense>
         </>
@@ -53,7 +53,7 @@ async function fetchEvents() {
 }
 
 export async function eventDetailLoader({ params }) {
-    const id = params.id;
+    const id = params.eventId;
 
     return {
         event: await fetchEvent(id),

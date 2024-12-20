@@ -9,7 +9,7 @@ export default function EventsPage() {
     return (
         <Suspense fallback={<p>Loading...</p>}>
             <Await resolve={events}>
-                {(fetchedEvents) => <EventsList events={fetchedEvents.events} />}
+                {({events}) => <EventsList events={events} />}
             </Await>
         </Suspense>
     );
