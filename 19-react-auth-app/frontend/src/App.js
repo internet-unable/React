@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { tokenLoader } from "./utils/auth";
+import { tokenLoader, checkAuthLoader } from "./utils/auth";
 import EditEventPage from "./pages/EditEvent";
 import ErrorPage from "./pages/Error";
 import EventDetailPage, {
@@ -47,6 +47,7 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "edit",
+                                loader: checkAuthLoader,
                                 element: <EditEventPage />,
                                 action: manipulateEventAction,
                             },
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "new",
+                        loader: checkAuthLoader,
                         element: <NewEventPage />,
                         action: manipulateEventAction,
                     },
