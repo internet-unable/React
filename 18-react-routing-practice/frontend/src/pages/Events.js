@@ -1,24 +1,26 @@
-import { useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
+import { useLoaderData, Await } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
 
 export default function EventsPage() {
-    const data = useLoaderData();
+    const {events} = useLoaderData();
 
     return (
-        <>
-            {data.isError && <p>{data.message}</p>}
-
-            {!data.isError && <EventsList events={data.events} />}
-        </>
+        <Suspense fallback={<p>Loading...</p>}>
+            <Await resolve={events}>
+                {(fetchedEvents) => <EventsList events={fetchedEvents.events} />}
+            </Await>
+        </Suspense>
     );
 }
 
-export async function eventsLoader() {
+async function fetchEvents() {
     const response = await fetch("http://localhost:8080/events");
 
     if (response.ok) {
-        return response;
+        const resData = await response.json();
+        return resData;
     } else {
         // Option 1
         // return { isError: true, message: "Could not fetch events" };
@@ -26,5 +28,11 @@ export async function eventsLoader() {
         // Option 2
         // react-router-dom will render closest errorElement of createBrowserRouter(). It can bubble up
         throw new Response(JSON.stringify({ message: "Could not fetch events"}), { status: 500 });
+    }
+}
+
+export function eventsLoader() {
+    return {
+        events: fetchEvents()
     }
 }
