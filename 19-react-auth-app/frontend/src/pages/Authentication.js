@@ -30,6 +30,11 @@ export async function authAction({ request }) {
     });
 
     if (response.ok) {
+        const resData = await response.json();
+        const token = resData.token;
+
+        localStorage.setItem("token", token);
+
         return redirect("/");
     } else if (response.status === 422 || response.status === 401) {
         return response;
