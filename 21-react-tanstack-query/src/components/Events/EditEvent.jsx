@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import { fetchEvent, updateEvent } from '../../utils/http.js';
+import { fetchEvent, updateEvent, queryClient } from '../../utils/http.js';
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
@@ -10,12 +10,30 @@ import ErrorBlock from '../UI/ErrorBlock.jsx';
 export default function EditEvent() {
     const params = useParams();
     const navigate = useNavigate();
+    const queryKey = ['events', params.id];
     const { data, isPending, isError, error } = useQuery({
-        queryKey: ['events', params.id],
+        queryKey,
         queryFn: ({ signal }) => fetchEvent({ signal, id: params.id }),
     });
     const { mutate } = useMutation({
-        mutationFn: updateEvent
+        mutationFn: updateEvent,
+        onMutate: async (data) => {
+            const newEvent = data.event;
+            const previousEventData = queryClient.getQueryData(queryKey);
+
+            await queryClient.cancelQueries({ queryKey });
+            queryClient.setQueryData(queryKey, newEvent);
+
+            return { previousEventData };
+        },
+        // if http-request fails - revert the changes
+        onError: (error, data, context) => { // context is the return value from onMutate
+            queryClient.setQueryData(queryKey, context.previousEventData);
+        },
+        // when http-request is done (no matter if it failed or succeeded) - invalidate the cache
+        onSettled: () => {
+            queryClient.invalidateQueries(queryKey);
+        },
     });
 
     function handleSubmit(formData) {
