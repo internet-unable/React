@@ -21,16 +21,19 @@ export default function EditEvent() {
             const newEvent = data.event;
             const previousEventData = queryClient.getQueryData(queryKey);
 
-            await queryClient.cancelQueries({ queryKey });
-            queryClient.setQueryData(queryKey, newEvent);
+            await queryClient.cancelQueries({ queryKey }); // Cancel potential update if cache from other sources
+            queryClient.setQueryData(queryKey, newEvent); // Optimistically update the cache with new data
 
-            return { previousEventData };
+            return { previousEventData }; // Value of cache before the mutation. Will be passed to onError
         },
-        // if http-request fails - revert the changes
+        // If http-request fails - revert the changes from cache
         onError: (error, data, context) => { // context is the return value from onMutate
             queryClient.setQueryData(queryKey, context.previousEventData);
         },
-        // when http-request is done (no matter if it failed or succeeded) - invalidate the cache
+        /*
+            When http-request is done (no matter if it failed or succeeded) - invalidate the cache.
+            Just in case (maybe the server did some extra work on the data).
+        */
         onSettled: () => {
             queryClient.invalidateQueries(queryKey);
         },
