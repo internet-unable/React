@@ -7,42 +7,9 @@ import EventItem from './EventItem.jsx';
 import { fetchEvents } from "../../utils/http";
 
 export default function NewEventsSection() {
-    // const [data, setData] = useState();
-    // const [error, setError] = useState();
-    // const [isLoading, setIsLoading] = useState(false);
-
-    // useEffect(() => {
-    //     async function fetchEvents() {
-    //         setIsLoading(true);
-    //         const response = await fetch('http://localhost:3000/events');
-
-    //         if (!response.ok) {
-    //             const error = new Error('An error occurred while fetching the events');
-    //             error.code = response.status;
-    //             error.info = await response.json();
-    //             throw error;
-    //         }
-
-    //         const { events } = await response.json();
-
-    //         return events;
-    //     }
-
-    //     fetchEvents()
-    //         .then((events) => {
-    //             setData(events);
-    //         })
-    //         .catch((error) => {
-    //             setError(error);
-    //         })
-    //         .finally(() => {
-    //             setIsLoading(false);
-    //         });
-    // }, []);
-
     const { data, isPending, isError, error } = useQuery({
-        queryKey: ["events"],
-        queryFn: fetchEvents
+        queryKey: ["events", { max: 3 }],
+        queryFn: ({ signal, queryKey }) => fetchEvents({ signal, ...queryKey[1] })
     });
     let content;
 
