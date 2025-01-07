@@ -18,6 +18,7 @@ export default function EditEvent() {
         staleTime: 10000, // don't refetch if data in cache is younger than 10 seconds
     });
 
+    // Optimistic update
     // const { mutate } = useMutation({
     //     mutationFn: updateEvent,
     //     onMutate: async (data) => {
