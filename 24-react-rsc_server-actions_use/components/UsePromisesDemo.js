@@ -1,9 +1,9 @@
-import fs from "node:fs/promises";
+"use client";
 
-export default async function UsePromisesDemo() {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    const data = await fs.readFile("dummy-db.json", "utf-8");
-    const users = JSON.parse(data);
+import { use } from "react";
+
+export default function UsePromisesDemo({ usersPromise }) {
+    const users = use(usersPromise);
 
     return (
         <div className="rsc">
@@ -12,7 +12,7 @@ export default async function UsePromisesDemo() {
                 Uses <strong>async/await</strong> for data fetching.
             </p>
             <ul>
-                {users.map(user => (
+                {users.map((user) => (
                     <li key={user.id}>
                         {user.name} ({user.title})
                     </li>
