@@ -69,8 +69,8 @@ export default function NewChallenge({ onDone }) {
                             onClick={() => handleSelectImage(image)}
                             className={selectedImage === image ? 'selected' : undefined}
                             variants={{
-                                visible: { opacity: 1, scale: 1 },
-                                hidden: { opacity:0, scale: 0.5},
+                                visible: { opacity: 1, scale: [0.8, 1.3, 1] },
+                                hidden: { opacity: 0, scale: 0.5 },
                             }}
                             transition={{ type: "bounce" }}
                         >
