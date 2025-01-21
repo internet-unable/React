@@ -40,6 +40,8 @@ body {
 
 #welcome-header {
     height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 #city-image {
@@ -56,8 +58,7 @@ body {
     max-width: 40%;
     position: absolute;
     bottom: 10%;
-    left: 50%;
-    transform: translateX(-82%);
+    right: calc(50% - 60px);
     object-fit: cover;
     filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.5));
 }
@@ -66,8 +67,6 @@ body {
     width: 40rem;
     position: absolute;
     top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 1;
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
     text-align: center;
