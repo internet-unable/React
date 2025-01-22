@@ -7,11 +7,11 @@ export default function App() {
             <section>
                 <h2>Why work with us?</h2>
                 <Accordion className="accordion">
-                    <Accordion.Item className="accordion-item">
-                        <Accordion.Title id="experience" className="accordion-item-title">
+                    <Accordion.Item id="experience" className="accordion-item">
+                        <Accordion.Title className="accordion-item-title">
                             We got 20 years of experiece
                         </Accordion.Title>
-                        <AccordionContent id="experience" className="accordion-item-content">
+                        <AccordionContent className="accordion-item-content">
                             <article>
                                 <p>You can&apos;t go wrong with us</p>
                                 <p>We are in the business of planning trips for more then 20 years</p>
@@ -19,11 +19,11 @@ export default function App() {
                         </AccordionContent>
                     </Accordion.Item>
 
-                    <Accordion.Item className="accordion-item">
-                        <Accordion.Title id="local-guides" className="accordion-item-title">
+                    <Accordion.Item id="local-guides" className="accordion-item">
+                        <Accordion.Title className="accordion-item-title">
                             We&apos;re working with local guides
                         </Accordion.Title>
-                        <Accordion.Content id="local-guides" className="accordion-item-content">
+                        <Accordion.Content className="accordion-item-content">
                             <article>
                                 <p>We are not doing it along from out office</p>
                                 <p>Instead we are working with local guides to ensure a safe and pleasent vacation</p>
