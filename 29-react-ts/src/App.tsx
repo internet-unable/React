@@ -1,8 +1,10 @@
-import React from "react";
+import Todos from "./components/Todos";
 import "./App.css";
 
-function App() {
-    return <div className="App"></div>;
+export default function App() {
+    return (
+        <div className="App">
+            <Todos todos={["Learn React", "Learn TypeScript"]} />
+        </div>
+    );
 }
-
-export default App;
