@@ -17,10 +17,16 @@ export default function App() {
         setTodos(prevTodos => prevTodos.concat(newTodo));
     }
 
+    const handleDeleteTodo = (id: string) => {
+        setTodos(prevTodos => {
+            return prevTodos.filter(todo => todo.id !== id);
+        });
+    }
+
     return (
         <div className="App">
             <NewTodo onAddTodo={handleAddTodo} />
-            <Todos todos={todos} />
+            <Todos todos={todos} onDeleteTodo={handleDeleteTodo} />
         </div>
     );
 }
